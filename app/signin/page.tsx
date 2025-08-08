@@ -3,6 +3,9 @@
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 
 export default function SignIn() {
   const { signIn } = useAuthActions();
@@ -27,24 +30,21 @@ export default function SignIn() {
             });
         }}
       >
-        <input
-          className="bg-background text-foreground rounded-md p-2 border-2 border-slate-200 dark:border-slate-800"
+        <Input
           type="email"
           name="email"
           placeholder="Email"
         />
-        <input
-          className="bg-background text-foreground rounded-md p-2 border-2 border-slate-200 dark:border-slate-800"
+        <Input
           type="password"
           name="password"
           placeholder="Password"
         />
-        <button
-          className="bg-foreground text-background rounded-md"
+        <Button
           type="submit"
         >
           {flow === "signIn" ? "Sign in" : "Sign up"}
-        </button>
+        </Button>
         <div className="flex flex-row gap-2">
           <span>
             {flow === "signIn"
@@ -59,11 +59,11 @@ export default function SignIn() {
           </span>
         </div>
         {error && (
-          <div className="bg-red-500/20 border-2 border-red-500/50 rounded-md p-2">
+          <Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 border-red-600 bg-red-50 dark:border-red-900 dark:bg-red-950">
             <p className="text-foreground font-mono text-xs">
               Error signing in: {error}
             </p>
-          </div>
+          </Label>
         )}
       </form>
     </div>
