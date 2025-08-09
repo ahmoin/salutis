@@ -6,6 +6,7 @@ import { fontVariables } from "@/lib/fonts";
 
 import "@/styles/globals.css";
 import { META_THEME_COLORS } from "@/lib/config";
+import { ThemeProvider } from "@/components/theme-provider";
 
 export const metadata: Metadata = {
 	title: "Salutis",
@@ -22,7 +23,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<ConvexAuthNextjsServerProvider>
-			<html lang="en">
+			<html lang="en" suppressHydrationWarning>
 				<head>
 					<script
 						dangerouslySetInnerHTML={{
@@ -47,7 +48,9 @@ export default function RootLayout({
 					)}
 				>
 					<ConvexClientProvider>
-						<div className="bg-background">{children}</div>
+						<ThemeProvider>
+							<div className="bg-background">{children}</div>
+						</ThemeProvider>
 					</ConvexClientProvider>
 				</body>
 			</html>
