@@ -49,7 +49,7 @@ export default function SignIn() {
 					</span>
 				</div>
 				{error && (
-					<Label className="hover:bg-accent/50 flex items-start gap-3 rounded-lg border p-3 border-red-900 bg-red-950">
+					<Label className="flex items-start gap-3 rounded-lg border p-3 border-red-900 bg-red-950">
 						<p className="text-foreground font-mono text-xs">
 							Error signing in: {error}
 						</p>
