@@ -4,6 +4,13 @@ import { useAuthActions } from "@convex-dev/auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 
@@ -13,48 +20,114 @@ export default function SignIn() {
 	const [error, setError] = useState<string | null>(null);
 	const router = useRouter();
 	return (
-		<div className="flex flex-col gap-8 w-96 mx-auto h-screen justify-center items-center">
-			<form
-				className="flex flex-col gap-2"
-				onSubmit={(e) => {
-					e.preventDefault();
-					const formData = new FormData(e.target as HTMLFormElement);
-					formData.set("flow", flow);
-					void signIn("password", formData)
-						.catch((error) => {
-							setError(error.message);
-						})
-						.then(() => {
-							router.push("/");
-						});
-				}}
-			>
-				<Input type="email" name="email" placeholder="Email" />
-				<Input type="password" name="password" placeholder="Password" />
-				<Button type="submit">
-					{flow === "signIn" ? "Sign in" : "Sign up"}
-				</Button>
-				<div className="flex flex-row gap-2">
-					<span>
-						{flow === "signIn"
-							? "Don't have an account?"
-							: "Already have an account?"}
-					</span>
-					<span
-						className="text-foreground underline hover:no-underline cursor-pointer"
-						onClick={() => setFlow(flow === "signIn" ? "signUp" : "signIn")}
-					>
-						{flow === "signIn" ? "Sign up instead" : "Sign in instead"}
-					</span>
+		<div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+			<div className="flex w-full max-w-sm flex-col gap-6">
+				<a href="#" className="flex items-center gap-2 self-center font-medium">
+					<div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+						{/* TODO: add logo here */}
+					</div>
+					Salutis
+				</a>
+				<div className="flex flex-col gap-6">
+					<Card>
+						<CardHeader className="text-center">
+							<CardTitle className="text-xl">Welcome back</CardTitle>
+							{/* TODO: add other OAuth providers like GitHub */}
+							<CardDescription>Login with your Google account</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<form
+								onSubmit={(e) => {
+									e.preventDefault();
+									const formData = new FormData(e.target as HTMLFormElement);
+									formData.set("flow", flow);
+									void signIn("password", formData)
+										.catch((error) => {
+											setError(error.message);
+										})
+										.then(() => {
+											router.push("/");
+										});
+								}}
+							>
+								<div className="grid gap-6">
+									<div className="flex flex-col gap-4">
+										<Button
+											onClick={() => void signIn("google")}
+											variant="outline"
+											className="w-full"
+										>
+											<svg
+												xmlns="http://www.w3.org/2000/svg"
+												viewBox="0 0 24 24"
+											>
+												<path
+													d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"
+													fill="currentColor"
+												/>
+											</svg>
+											Login with Google
+										</Button>
+									</div>
+									<div className="after:border-border relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+										<span className="bg-card text-muted-foreground relative z-10 px-2">
+											Or continue with
+										</span>
+									</div>
+									<div className="grid gap-6">
+										<div className="grid gap-3">
+											<Label htmlFor="email">Email</Label>
+											<Input
+												id="email"
+												type="email"
+												placeholder="m@example.com"
+												required
+											/>
+										</div>
+										<div className="grid gap-3">
+											<div className="flex items-center">
+												<Label htmlFor="password">Password</Label>
+												<a
+													href="#"
+													className="ml-auto text-sm underline-offset-4 hover:underline"
+												>
+													Forgot your password?
+												</a>
+											</div>
+											<Input id="password" type="password" required />
+										</div>
+										<Button type="submit" className="w-full">
+											Login
+										</Button>
+									</div>
+									<div className="text-center text-sm">
+										{flow === "signIn"
+											? "Don't have an account? "
+											: "Already have an account? "}
+										<span
+											onClick={() =>
+												setFlow(flow === "signIn" ? "signUp" : "signIn")
+											}
+											className="underline underline-offset-4"
+										>
+											{flow === "signIn"
+												? "Sign up instead"
+												: "Sign in instead"}
+										</span>
+									</div>
+								</div>
+							</form>
+						</CardContent>
+					</Card>
+					{error && (
+						<Label className="flex items-start gap-3 rounded-lg border p-3 border-red-900 bg-red-950">
+							<p className="text-foreground font-mono text-xs">
+								Error signing in: {error}
+							</p>
+						</Label>
+					)}
 				</div>
-				{error && (
-					<Label className="flex items-start gap-3 rounded-lg border p-3 border-red-900 bg-red-950">
-						<p className="text-foreground font-mono text-xs">
-							Error signing in: {error}
-						</p>
-					</Label>
-				)}
-			</form>
+			</div>
 		</div>
 	);
 }
