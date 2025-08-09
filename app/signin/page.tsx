@@ -77,6 +77,7 @@ export default function SignIn() {
 											<Input
 												id="email"
 												type="email"
+												name="email"
 												placeholder="m@example.com"
 												required
 											/>
@@ -91,7 +92,12 @@ export default function SignIn() {
 													Forgot your password?
 												</a>
 											</div>
-											<Input id="password" type="password" required />
+											<Input
+												id="password"
+												type="password"
+												name="password"
+												required
+											/>
 										</div>
 										<Button type="submit" className="w-full">
 											Login
