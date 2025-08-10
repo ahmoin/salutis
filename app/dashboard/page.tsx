@@ -18,20 +18,36 @@ import { toast } from "sonner";
 import Image from "next/image";
 
 export default function Dashboard() {
+	const router = useRouter();
+
 	return (
 		<>
 			<header className="sticky top-0 z-10 bg-background p-4 border-b-2 border-zinc-800 flex flex-row justify-between items-center">
-				<div className="flex flex-row items-center">
-					<div className="text-primary-foreground flex size-8 items-center justify-center rounded-md">
-						<Image
-							className="size-8"
-							src="/salutis.svg"
-							alt="Salutis logo"
-							width={48}
-							height={48}
-						/>
+				<div className="flex items-center gap-8">
+					<div className="flex flex-row items-center gap-2">
+						<div className="text-primary-foreground flex size-8 items-center justify-center rounded-md">
+							<Image
+								className="size-8"
+								src="/salutis.svg"
+								alt="Salutis logo"
+								width={48}
+								height={48}
+							/>
+						</div>
+						<span className="text-xl font-bold">Salutis</span>
 					</div>
-					Salutis
+					<nav className="flex items-center gap-4">
+						<Button variant="ghost" className="text-primary font-medium">
+							Courses
+						</Button>
+						<Button
+							variant="ghost"
+							onClick={() => router.push("/chat")}
+							className="font-medium"
+						>
+							Chat
+						</Button>
+					</nav>
 				</div>
 				<SignOutButton />
 			</header>
@@ -73,7 +89,10 @@ function SignOutButton() {
 function MentalHealthCourses() {
 	const { isAuthenticated } = useConvexAuth();
 	const courses = useQuery(api.courses.getCourses);
-	const userCourses = useQuery(api.courses.getUserCourses);
+	const userCourses = useQuery(
+		api.courses.getUserCourses,
+		isAuthenticated ? {} : "skip",
+	);
 	const needsInit = useQuery(api.courses.needsInitialization);
 	const startCourse = useMutation(api.courses.startCourse);
 	const ensureCoursesExist = useMutation(api.courses.ensureCoursesExist);
@@ -99,7 +118,7 @@ function MentalHealthCourses() {
 
 	const handleStartCourse = async (courseId: Id<"courses">) => {
 		if (!isAuthenticated) {
-			toast.error("Please sign in to start a course");
+			toast.error("Please login to start a course");
 			return;
 		}
 
@@ -122,7 +141,9 @@ function MentalHealthCourses() {
 	};
 
 	const isEnrolledInCourse = (courseId: Id<"courses">) => {
-		return userCourses?.some((uc) => uc.courseId === courseId);
+		return (
+			isAuthenticated && userCourses?.some((uc) => uc.courseId === courseId)
+		);
 	};
 
 	if (courses === undefined || needsInit === undefined) {
@@ -152,13 +173,14 @@ function MentalHealthCourses() {
 				{courses.map((course) => {
 					const isEnrolled = isEnrolledInCourse(course._id);
 					const isStarting = startingCourse === course._id;
-					const userCourse = userCourses?.find(
-						(uc) => uc.courseId === course._id,
-					);
+					const userCourse = isAuthenticated
+						? userCourses?.find((uc) => uc.courseId === course._id)
+						: undefined;
 					const completedModules = userCourse?.completedModules?.length || 0;
-					const progressPercentage = isEnrolled
-						? Math.round((completedModules / course.modules.length) * 100)
-						: 0;
+					const progressPercentage =
+						isEnrolled && userCourse
+							? Math.round((completedModules / course.modules.length) * 100)
+							: 0;
 
 					return (
 						<Card

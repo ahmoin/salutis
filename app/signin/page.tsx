@@ -75,13 +75,11 @@ export default function SignIn() {
 
 										try {
 											await signIn("password", formData);
-											toast.success("Signed in successfully!");
+											toast.success("Logged in successfully!");
 											router.push("/dashboard");
 										} catch (error) {
 											console.warn(error);
-											toast.error(
-												"Could not sign in, did you mean to sign up?",
-											);
+											toast.error("Could not login, did you mean to sign up?");
 										}
 									}}
 								>
@@ -126,7 +124,7 @@ export default function SignIn() {
 										}
 										className="underline underline-offset-4"
 									>
-										{flow === "signIn" ? "Sign up instead" : "Sign in instead"}
+										{flow === "signIn" ? "Sign up instead" : "Login instead"}
 									</span>
 								</div>
 							</div>

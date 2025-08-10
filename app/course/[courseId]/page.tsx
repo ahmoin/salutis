@@ -218,7 +218,6 @@ function ModuleContent({
 		const courseKey = courseName.toLowerCase();
 		const moduleKey = moduleName.toLowerCase();
 
-		// Content database for different courses and modules
 		const contentDatabase: Record<
 			string,
 			Record<
@@ -1116,7 +1115,6 @@ function ModuleContent({
 			},
 		};
 
-		// Get content for the specific course and module
 		const courseContent = contentDatabase[courseKey];
 		if (!courseContent) {
 			return {

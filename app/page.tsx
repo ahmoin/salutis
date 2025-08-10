@@ -50,7 +50,7 @@ export default function Home() {
 						</div>
 						<div className="flex items-center gap-4">
 							<Button variant="ghost" onClick={() => router.push("/signin")}>
-								Sign In
+								Login
 							</Button>
 							<Button onClick={() => router.push("/signin")}>
 								Get Started
