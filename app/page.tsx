@@ -1,9 +1,5 @@
 "use client";
 
-import { useConvexAuth, useMutation, useQuery } from "convex/react";
-import { api } from "../convex/_generated/api";
-// import Link from "next/link";
-import { useAuthActions } from "@convex-dev/auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,6 +11,10 @@ import {
 } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import { useConvexAuth, useMutation, useQuery } from "convex/react";
+import { api } from "../convex/_generated/api";
+import type { Id } from "../convex/_generated/dataModel";
+import { useAuthActions } from "@convex-dev/auth/react";
 
 export default function Home() {
 	return (
@@ -65,9 +65,10 @@ function MentalHealthCourses() {
 	const needsInit = useQuery(api.courses.needsInitialization);
 	const startCourse = useMutation(api.courses.startCourse);
 	const ensureCoursesExist = useMutation(api.courses.ensureCoursesExist);
-	const [startingCourse, setStartingCourse] = useState<string | null>(null);
+	const [startingCourse, setStartingCourse] = useState<Id<"courses"> | null>(
+		null,
+	);
 
-	// Automatically ensure courses exist when needed
 	useEffect(() => {
 		const initializeCourses = async () => {
 			if (needsInit === true) {
@@ -84,7 +85,7 @@ function MentalHealthCourses() {
 
 	const router = useRouter();
 
-	const handleStartCourse = async (courseId: string) => {
+	const handleStartCourse = async (courseId: Id<"courses">) => {
 		if (!isAuthenticated) {
 			toast.error("Please sign in to start a course");
 			return;
@@ -92,9 +93,8 @@ function MentalHealthCourses() {
 
 		setStartingCourse(courseId);
 		try {
-			await startCourse({ courseId: courseId as any });
+			await startCourse({ courseId });
 			toast.success("Course started successfully!");
-			// Redirect to the course page
 			router.push(`/course/${courseId}`);
 		} catch (error) {
 			toast.error(
@@ -105,11 +105,11 @@ function MentalHealthCourses() {
 		}
 	};
 
-	const handleViewCourse = (courseId: string) => {
+	const handleViewCourse = (courseId: Id<"courses">) => {
 		router.push(`/course/${courseId}`);
 	};
 
-	const isEnrolledInCourse = (courseId: string) => {
+	const isEnrolledInCourse = (courseId: Id<"courses">) => {
 		return userCourses?.some((uc) => uc.courseId === courseId);
 	};
 
@@ -140,9 +140,13 @@ function MentalHealthCourses() {
 				{courses.map((course) => {
 					const isEnrolled = isEnrolledInCourse(course._id);
 					const isStarting = startingCourse === course._id;
-					const userCourse = userCourses?.find(uc => uc.courseId === course._id);
+					const userCourse = userCourses?.find(
+						(uc) => uc.courseId === course._id,
+					);
 					const completedModules = userCourse?.completedModules?.length || 0;
-					const progressPercentage = isEnrolled ? Math.round((completedModules / course.modules.length) * 100) : 0;
+					const progressPercentage = isEnrolled
+						? Math.round((completedModules / course.modules.length) * 100)
+						: 0;
 
 					return (
 						<Card
@@ -154,16 +158,17 @@ function MentalHealthCourses() {
 									<CardTitle className="text-lg">{course.title}</CardTitle>
 									{isEnrolled && (
 										<span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-											{userCourse?.isCompleted ? "Completed" : `${progressPercentage}%`}
+											{userCourse?.isCompleted
+												? "Completed"
+												: `${progressPercentage}%`}
 										</span>
 									)}
 								</div>
 								<CardDescription>{course.description}</CardDescription>
-								
-								{/* Progress bar for enrolled courses */}
+
 								{isEnrolled && (
 									<div className="w-full bg-muted rounded-full h-1.5 mt-3">
-										<div 
+										<div
 											className="bg-primary h-1.5 rounded-full transition-all duration-300"
 											style={{ width: `${progressPercentage}%` }}
 										/>
@@ -209,116 +214,3 @@ function MentalHealthCourses() {
 		</div>
 	);
 }
-
-// function Content() {
-// 	const { viewer, numbers } =
-// 		useQuery(api.myFunctions.listNumbers, {
-// 			count: 10,
-// 		}) ?? {};
-// 	const addNumber = useMutation(api.myFunctions.addNumber);
-
-// 	if (viewer === undefined || numbers === undefined) {
-// 		return (
-// 			<div className="mx-auto">
-// 				<p>loading... (consider a loading skeleton)</p>
-// 			</div>
-// 		);
-// 	}
-
-// 	return (
-// 		<div className="flex flex-col gap-8 max-w-lg mx-auto">
-// 			<p>Welcome {viewer ?? "Anonymous"}!</p>
-// 			<p>
-// 				Click the button below and open this page in another window - this data
-// 				is persisted in the Convex cloud database!
-// 			</p>
-// 			<p>
-// 				<button
-// 					className="bg-foreground text-background text-sm px-4 py-2 rounded-md"
-// 					onClick={() => {
-// 						void addNumber({ value: Math.floor(Math.random() * 10) });
-// 					}}
-// 				>
-// 					Add a random number
-// 				</button>
-// 			</p>
-// 			<p>
-// 				Numbers:{" "}
-// 				{numbers?.length === 0
-// 					? "Click the button!"
-// 					: (numbers?.join(", ") ?? "...")}
-// 			</p>
-// 			<p>
-// 				Edit{" "}
-// 				<code className="text-sm font-bold font-mono bg-zinc-800 px-1 py-0.5 rounded-md">
-// 					convex/myFunctions.ts
-// 				</code>{" "}
-// 				to change your backend
-// 			</p>
-// 			<p>
-// 				Edit{" "}
-// 				<code className="text-sm font-bold font-mono bg-zinc-800 px-1 py-0.5 rounded-md">
-// 					app/page.tsx
-// 				</code>{" "}
-// 				to change your frontend
-// 			</p>
-// 			<p>
-// 				See the{" "}
-// 				<Link href="/server" className="underline hover:no-underline">
-// 					/server route
-// 				</Link>{" "}
-// 				for an example of loading data in a server component
-// 			</p>
-// 			<div className="flex flex-col">
-// 				<p className="text-lg font-bold">Useful resources:</p>
-// 				<div className="flex gap-2">
-// 					<div className="flex flex-col gap-2 w-1/2">
-// 						<ResourceCard
-// 							title="Convex docs"
-// 							description="Read comprehensive documentation for all Convex features."
-// 							href="https://docs.convex.dev/home"
-// 						/>
-// 						<ResourceCard
-// 							title="Stack articles"
-// 							description="Learn about best practices, use cases, and more from a growing
-//             collection of articles, videos, and walkthroughs."
-// 							href="https://www.typescriptlang.org/docs/handbook/2/basic-types.html"
-// 						/>
-// 					</div>
-// 					<div className="flex flex-col gap-2 w-1/2">
-// 						<ResourceCard
-// 							title="Templates"
-// 							description="Browse our collection of templates to get started quickly."
-// 							href="https://www.convex.dev/templates"
-// 						/>
-// 						<ResourceCard
-// 							title="Discord"
-// 							description="Join our developer community to ask questions, trade tips & tricks,
-//             and show off your projects."
-// 							href="https://www.convex.dev/community"
-// 						/>
-// 					</div>
-// 				</div>
-// 			</div>
-// 		</div>
-// 	);
-// }
-
-// function ResourceCard({
-// 	title,
-// 	description,
-// 	href,
-// }: {
-// 	title: string;
-// 	description: string;
-// 	href: string;
-// }) {
-// 	return (
-// 		<div className="flex flex-col gap-2 bg-zinc-800 p-4 rounded-md h-28 overflow-auto">
-// 			<a href={href} className="text-sm underline hover:no-underline">
-// 				{title}
-// 			</a>
-// 			<p className="text-xs">{description}</p>
-// 		</div>
-// 	);
-// }

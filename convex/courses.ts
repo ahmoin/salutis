@@ -41,7 +41,7 @@ export const getUserCourses = query({
 					...userCourse,
 					course,
 				};
-			})
+			}),
 		);
 
 		return coursesWithDetails;
@@ -62,8 +62,8 @@ export const startCourse = mutation({
 		// Check if user is already enrolled in this course
 		const existingEnrollment = await ctx.db
 			.query("userCourses")
-			.withIndex("by_user_course", (q) => 
-				q.eq("userId", userId).eq("courseId", args.courseId)
+			.withIndex("by_user_course", (q) =>
+				q.eq("userId", userId).eq("courseId", args.courseId),
 			)
 			.first();
 
@@ -103,11 +103,16 @@ export const completeModule = mutation({
 
 		// Add module to completed modules if not already completed
 		if (!userCourse.completedModules.includes(args.moduleName)) {
-			const updatedCompletedModules = [...userCourse.completedModules, args.moduleName];
-			
+			const updatedCompletedModules = [
+				...userCourse.completedModules,
+				args.moduleName,
+			];
+
 			// Get course details to check if all modules are completed
 			const course = await ctx.db.get(userCourse.courseId);
-			const isCompleted = course ? updatedCompletedModules.length === course.modules.length : false;
+			const isCompleted = course
+				? updatedCompletedModules.length === course.modules.length
+				: false;
 
 			await ctx.db.patch(args.userCourseId, {
 				completedModules: updatedCompletedModules,
@@ -124,7 +129,10 @@ export const ensureCoursesExist = mutation({
 		// Check if courses already exist
 		const existingCourses = await ctx.db.query("courses").collect();
 		if (existingCourses.length > 0) {
-			return { message: "Courses already exist", count: existingCourses.length };
+			return {
+				message: "Courses already exist",
+				count: existingCourses.length,
+			};
 		}
 
 		const courses = [
@@ -133,9 +141,9 @@ export const ensureCoursesExist = mutation({
 				description: "Learn to understand and manage depression",
 				modules: [
 					"Symptoms of Depression",
-					"How to cope with Depression", 
-					"How to overcome Depression"
-				]
+					"How to cope with Depression",
+					"How to overcome Depression",
+				],
 			},
 			{
 				title: "Schizophrenia Course",
@@ -143,8 +151,8 @@ export const ensureCoursesExist = mutation({
 				modules: [
 					"Symptoms of Schizophrenia",
 					"How to cope with Schizophrenia",
-					"How to overcome Schizophrenia"
-				]
+					"How to overcome Schizophrenia",
+				],
 			},
 			{
 				title: "Obsessive Compulsive Disorder (OCD) Course",
@@ -152,8 +160,8 @@ export const ensureCoursesExist = mutation({
 				modules: [
 					"Symptoms of OCD",
 					"How to cope with OCD",
-					"How to overcome OCD"
-				]
+					"How to overcome OCD",
+				],
 			},
 			{
 				title: "Post-traumatic Stress Disorder (PTSD) Course",
@@ -161,8 +169,8 @@ export const ensureCoursesExist = mutation({
 				modules: [
 					"Symptoms of PTSD",
 					"How to cope with PTSD",
-					"How to overcome PTSD"
-				]
+					"How to overcome PTSD",
+				],
 			},
 			{
 				title: "Bipolar Disorder Course",
@@ -170,8 +178,8 @@ export const ensureCoursesExist = mutation({
 				modules: [
 					"Symptoms of Bipolar Disorder",
 					"How to cope with Bipolar Disorder",
-					"How to overcome Bipolar Disorder"
-				]
+					"How to overcome Bipolar Disorder",
+				],
 			},
 			{
 				title: "Panic Disorder Course",
@@ -179,16 +187,20 @@ export const ensureCoursesExist = mutation({
 				modules: [
 					"Symptoms of Panic Disorder",
 					"How to cope with Panic Disorder",
-					"How to overcome Panic Disorder"
-				]
-			}
+					"How to overcome Panic Disorder",
+				],
+			},
 		];
 
 		// Insert all courses
 		const courseIds = await Promise.all(
-			courses.map(course => ctx.db.insert("courses", course))
+			courses.map((course) => ctx.db.insert("courses", course)),
 		);
 
-		return { message: "Courses initialized successfully", courseIds, count: courseIds.length };
+		return {
+			message: "Courses initialized successfully",
+			courseIds,
+			count: courseIds.length,
+		};
 	},
 });

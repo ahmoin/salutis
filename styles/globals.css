@@ -157,6 +157,7 @@
 		text-rendering: optimizeLegibility;
 	}
 
+	/* biome-ignore lint/a11y/useGenericFontNames: TODO: implement later */
 	@supports (font: -apple-system-body) and (-webkit-appearance: none) {
 		[data-wrapper] {
 			@apply min-[1800px]:border-t;
@@ -301,14 +302,6 @@
 		min-height: calc(var(--spacing) * 1);
 		width: 100%;
 		display: inline-block;
-	}
-
-	[data-line] span {
-		color: var(--shiki-light);
-
-		@variant dark {
-			color: var(--shiki-dark) !important;
-		}
 	}
 
 	[data-highlighted-line],
