@@ -11,7 +11,7 @@ import {
 	CardTitle,
 } from "@/components/ui/card";
 import { useEffect } from "react";
-import Image from "next/image";
+import { HomeHeader } from "@/components/home-header";
 
 export default function Home() {
 	const { isAuthenticated } = useConvexAuth();
@@ -33,32 +33,7 @@ export default function Home() {
 
 	return (
 		<div className="min-h-screen bg-gradient-to-br from-background to-muted/40">
-			<header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border">
-				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-					<div className="flex justify-between items-center py-4">
-						<div className="flex items-center gap-3">
-							<div className="text-primary-foreground flex size-8 items-center justify-center rounded-md">
-								<Image
-									className="size-8"
-									src="/salutis.svg"
-									alt="Salutis logo"
-									width={48}
-									height={48}
-								/>
-							</div>
-							<span className="text-xl font-bold text-foreground">Salutis</span>
-						</div>
-						<div className="flex items-center gap-4">
-							<Button variant="ghost" onClick={() => router.push("/signin")}>
-								Login
-							</Button>
-							<Button onClick={() => router.push("/signin")}>
-								Get Started
-							</Button>
-						</div>
-					</div>
-				</div>
-			</header>
+			<HomeHeader />
 
 			<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 				<div className="py-20 text-center">

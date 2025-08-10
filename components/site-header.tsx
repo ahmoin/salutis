@@ -30,7 +30,7 @@ export function SiteHeader({ currentPage }: SiteHeaderProps) {
 								height={48}
 							/>
 						</div>
-						<span className="text-xl font-bold">Salutis</span>
+						<span className="text-xl font-bold text-primary">Salutis</span>
 					</div>
 				</Link>
 
