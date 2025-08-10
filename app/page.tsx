@@ -6,6 +6,7 @@ import { useConvexAuth } from "convex/react";
 // import Link from "next/link";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 export default function Home() {
 	return (
@@ -29,8 +30,8 @@ function SignOutButton() {
 	return (
 		<>
 			{isAuthenticated && (
-				<button
-					className="bg-zinc-800 text-foreground rounded-md px-2 py-1"
+				<Button
+					variant="outline"
 					onClick={() =>
 						void signOut().then(() => {
 							router.push("/signin");
@@ -38,7 +39,7 @@ function SignOutButton() {
 					}
 				>
 					Sign out
-				</button>
+				</Button>
 			)}
 		</>
 	);
