@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Edit } from "lucide-react";
+import { Send, Edit, Check, X } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import type { JSX } from "react/jsx-runtime";
@@ -122,6 +122,8 @@ function MarkdownRenderer({ content }: { content: string }) {
 export default function Chat() {
 	const [message, setMessage] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
+	const [editingMessageId, setEditingMessageId] = useState<number | null>(null);
+	const [editingContent, setEditingContent] = useState("");
 	const [messages, setMessages] = useState<
 		Array<{
 			id: number;
@@ -138,6 +140,89 @@ export default function Chat() {
 			timestamp: new Date(),
 		},
 	]);
+
+	const handleEditMessage = (messageId: number, content: string) => {
+		setEditingMessageId(messageId);
+		setEditingContent(content);
+	};
+
+	const handleSaveEdit = async () => {
+		if (!editingContent.trim() || editingMessageId === null) return;
+
+		setMessages((prev) =>
+			prev.map((msg) =>
+				msg.id === editingMessageId
+					? { ...msg, content: editingContent.trim() }
+					: msg,
+			),
+		);
+
+		const editedMessageIndex = messages.findIndex(
+			(msg) => msg.id === editingMessageId,
+		);
+		if (editedMessageIndex !== -1) {
+			const messagesUpToEdit = messages.slice(0, editedMessageIndex);
+			const updatedMessage = {
+				...messages[editedMessageIndex],
+				content: editingContent.trim(),
+			};
+
+			setMessages([...messagesUpToEdit, updatedMessage]);
+			setIsLoading(true);
+
+			try {
+				const apiMessages = [...messagesUpToEdit, updatedMessage].map(
+					(msg) => ({
+						role: msg.type === "user" ? "user" : "assistant",
+						content: msg.content,
+					}),
+				);
+
+				const response = await fetch("/api/chat", {
+					method: "POST",
+					headers: {
+						"Content-Type": "application/json",
+					},
+					body: JSON.stringify({
+						messages: apiMessages,
+					}),
+				});
+
+				const data = await response.json();
+
+				const assistantResponse = {
+					id: Date.now() + 1,
+					type: "assistant" as const,
+					content:
+						data.message ||
+						"I'm sorry, I couldn't process your request right now.",
+					timestamp: new Date(),
+				};
+
+				setMessages((prev) => [...prev, assistantResponse]);
+			} catch (error) {
+				console.error("Chat error:", error);
+				const errorResponse = {
+					id: Date.now() + 1,
+					type: "assistant" as const,
+					content:
+						"I'm sorry, I'm having trouble connecting right now. Please try again in a moment, or explore our mental health courses for immediate support.",
+					timestamp: new Date(),
+				};
+				setMessages((prev) => [...prev, errorResponse]);
+			} finally {
+				setIsLoading(false);
+			}
+		}
+
+		setEditingMessageId(null);
+		setEditingContent("");
+	};
+
+	const handleCancelEdit = () => {
+		setEditingMessageId(null);
+		setEditingContent("");
+	};
 
 	const handleSendMessage = async (e: React.FormEvent) => {
 		e.preventDefault();
@@ -241,30 +326,71 @@ export default function Chat() {
 
 								<div className="flex flex-col gap-4 w-full">
 									<div className="flex flex-row gap-2 items-start">
-										{msg.type === "user" && (
+										{msg.type === "user" && editingMessageId !== msg.id && (
 											<Button
 												variant="ghost"
 												size="sm"
-												className="py-2 px-2 h-fit rounded-full text-muted-foreground opacity-0 group-hover/message:opacity-100"
+												onClick={() => handleEditMessage(msg.id, msg.content)}
+												className="py-2 px-2 h-fit rounded-full text-muted-foreground opacity-60 hover:opacity-100 transition-opacity"
 											>
 												<Edit className="w-4 h-4" />
 											</Button>
 										)}
 
-										<div
-											data-testid="message-content"
-											className={`flex flex-col gap-4 ${
-												msg.type === "user"
-													? "bg-primary text-primary-foreground px-3 py-2 rounded-xl"
-													: ""
-											}`}
-										>
-											{msg.type === "user" ? (
-												<p>{msg.content}</p>
-											) : (
-												<MarkdownRenderer content={msg.content} />
-											)}
-										</div>
+										{msg.type === "user" && editingMessageId === msg.id ? (
+											<div className="flex flex-col gap-2 w-full">
+												<div className="flex gap-2 items-center">
+													<Input
+														value={editingContent}
+														onChange={(e) => setEditingContent(e.target.value)}
+														className="flex-1"
+														placeholder="Edit your message..."
+														onKeyDown={(e) => {
+															if (e.key === "Enter" && !e.shiftKey) {
+																e.preventDefault();
+																handleSaveEdit();
+															}
+															if (e.key === "Escape") {
+																handleCancelEdit();
+															}
+														}}
+														autoFocus
+													/>
+													<Button
+														variant="ghost"
+														size="sm"
+														onClick={handleSaveEdit}
+														className="py-2 px-2 h-fit rounded-full text-green-600 hover:text-green-700"
+														disabled={!editingContent.trim()}
+													>
+														<Check className="w-4 h-4" />
+													</Button>
+													<Button
+														variant="ghost"
+														size="sm"
+														onClick={handleCancelEdit}
+														className="py-2 px-2 h-fit rounded-full text-red-600 hover:text-red-700"
+													>
+														<X className="w-4 h-4" />
+													</Button>
+												</div>
+											</div>
+										) : (
+											<div
+												data-testid="message-content"
+												className={`flex flex-col gap-4 ${
+													msg.type === "user"
+														? "bg-primary text-primary-foreground px-3 py-2 rounded-xl"
+														: ""
+												}`}
+											>
+												{msg.type === "user" ? (
+													<p>{msg.content}</p>
+												) : (
+													<MarkdownRenderer content={msg.content} />
+												)}
+											</div>
+										)}
 									</div>
 								</div>
 							</div>
