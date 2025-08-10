@@ -8,7 +8,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 interface SiteHeaderProps {
-	currentPage?: "courses" | "chat";
+	currentPage?: "courses" | "chat" | "breathing";
 }
 
 export function SiteHeader({ currentPage }: SiteHeaderProps) {
@@ -43,6 +43,15 @@ export function SiteHeader({ currentPage }: SiteHeaderProps) {
 						}`}
 					>
 						<Link href="/dashboard">Courses</Link>
+					</Button>
+					<Button
+						variant="ghost"
+						asChild
+						className={`font-medium ${
+							currentPage === "breathing" ? "text-primary" : ""
+						}`}
+					>
+						<Link href="/breathing">Breathing</Link>
 					</Button>
 					<Button
 						variant="ghost"

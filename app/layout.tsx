@@ -11,7 +11,7 @@ import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
 	title: "Salutis",
-	description: "A work in progress.",
+	description: "Your mental health companion",
 	icons: {
 		icon: "/salutis.svg",
 	},
