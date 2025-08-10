@@ -8,6 +8,7 @@ import "@/styles/globals.css";
 import { META_THEME_COLORS } from "@/lib/config";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/sonner";
+import { SiteFooter } from "@/components/site-footer";
 
 export const metadata: Metadata = {
 	title: "Salutis",
@@ -51,7 +52,10 @@ export default function RootLayout({
 				>
 					<ConvexClientProvider>
 						<ThemeProvider>
-							<section className="theme-container">{children}</section>
+							<div className="min-h-screen flex flex-col">
+								<section className="theme-container flex-1">{children}</section>
+								<SiteFooter />
+							</div>
 							<Toaster position="top-center" richColors />
 						</ThemeProvider>
 					</ConvexClientProvider>
