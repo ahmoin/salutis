@@ -82,7 +82,7 @@ export default function SignIn() {
 											})
 											.then(() => {
 												toast.success("Signed in successfully!");
-												router.push("/");
+												router.push("/dashboard");
 											});
 									}}
 								>

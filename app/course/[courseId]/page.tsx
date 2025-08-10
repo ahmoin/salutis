@@ -62,7 +62,7 @@ export default function CoursePage() {
 			<div className="min-h-screen p-8">
 				<div className="max-w-4xl mx-auto">
 					<h1 className="text-2xl font-bold mb-4">Course Not Found</h1>
-					<Button onClick={() => router.push("/")}>
+					<Button onClick={() => router.push("/dashboard")}>
 						<ArrowLeft className="w-4 h-4 mr-2" />
 						Back to Dashboard
 					</Button>
@@ -79,7 +79,7 @@ export default function CoursePage() {
 					<p className="mb-4">
 						You must be enrolled in this course to view it.
 					</p>
-					<Button onClick={() => router.push("/")}>
+					<Button onClick={() => router.push("/dashboard")}>
 						<ArrowLeft className="w-4 h-4 mr-2" />
 						Back to Dashboard
 					</Button>
@@ -100,7 +100,7 @@ export default function CoursePage() {
 				<div className="mb-8">
 					<Button
 						variant="ghost"
-						onClick={() => router.push("/")}
+						onClick={() => router.push("/dashboard")}
 						className="mb-4"
 					>
 						<ArrowLeft className="w-4 h-4 mr-2" />

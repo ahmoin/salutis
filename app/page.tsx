@@ -1,5 +1,6 @@
 "use client";
 
+import { useConvexAuth } from "convex/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -9,208 +10,164 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
-import { useState, useEffect } from "react";
-import { toast } from "sonner";
-import { useConvexAuth, useMutation, useQuery } from "convex/react";
-import { api } from "../convex/_generated/api";
-import type { Id } from "../convex/_generated/dataModel";
-import { useAuthActions } from "@convex-dev/auth/react";
+import { useEffect } from "react";
+import Image from "next/image";
 
 export default function Home() {
-	return (
-		<>
-			<header className="sticky top-0 z-10 bg-background p-4 border-b-2 border-zinc-800 flex flex-row justify-between items-center">
-				Salutis
-				<SignOutButton />
-			</header>
-			<main className="p-8 flex flex-col gap-8">
-				<div className="text-center">
-					<h1 className="text-4xl font-bold mb-2">Salutis</h1>
-					<p className="text-muted-foreground text-lg">
-						Your mental health companion
-					</p>
-				</div>
-				<MentalHealthCourses />
-			</main>
-		</>
-	);
-}
-
-function SignOutButton() {
 	const { isAuthenticated } = useConvexAuth();
-	const { signOut } = useAuthActions();
 	const router = useRouter();
-	return (
-		<>
-			{isAuthenticated && (
-				<Button
-					variant="outline"
-					onClick={() =>
-						void signOut().then(() => {
-							router.push("/signin");
-						})
-					}
-				>
-					Sign out
-				</Button>
-			)}
-		</>
-	);
-}
-
-function MentalHealthCourses() {
-	const { isAuthenticated } = useConvexAuth();
-	const courses = useQuery(api.courses.getCourses);
-	const userCourses = useQuery(api.courses.getUserCourses);
-	const needsInit = useQuery(api.courses.needsInitialization);
-	const startCourse = useMutation(api.courses.startCourse);
-	const ensureCoursesExist = useMutation(api.courses.ensureCoursesExist);
-	const [startingCourse, setStartingCourse] = useState<Id<"courses"> | null>(
-		null,
-	);
 
 	useEffect(() => {
-		const initializeCourses = async () => {
-			if (needsInit === true) {
-				try {
-					await ensureCoursesExist({});
-				} catch (error) {
-					console.error("Failed to initialize courses:", error);
-				}
-			}
-		};
-
-		initializeCourses();
-	}, [needsInit, ensureCoursesExist]);
-
-	const router = useRouter();
-
-	const handleStartCourse = async (courseId: Id<"courses">) => {
-		if (!isAuthenticated) {
-			toast.error("Please sign in to start a course");
-			return;
+		if (isAuthenticated) {
+			router.push("/dashboard");
 		}
+	}, [isAuthenticated, router]);
 
-		setStartingCourse(courseId);
-		try {
-			await startCourse({ courseId });
-			toast.success("Course started successfully!");
-			router.push(`/course/${courseId}`);
-		} catch (error) {
-			toast.error(
-				error instanceof Error ? error.message : "Failed to start course",
-			);
-		} finally {
-			setStartingCourse(null);
-		}
-	};
-
-	const handleViewCourse = (courseId: Id<"courses">) => {
-		router.push(`/course/${courseId}`);
-	};
-
-	const isEnrolledInCourse = (courseId: Id<"courses">) => {
-		return userCourses?.some((uc) => uc.courseId === courseId);
-	};
-
-	if (courses === undefined || needsInit === undefined) {
+	if (isAuthenticated) {
 		return (
-			<div className="max-w-6xl mx-auto">
-				<div className="text-center">
-					<p>Loading courses...</p>
-				</div>
-			</div>
-		);
-	}
-
-	if (needsInit === true || courses.length === 0) {
-		return (
-			<div className="max-w-6xl mx-auto">
-				<div className="text-center">
-					<p>Setting up courses...</p>
-				</div>
+			<div className="min-h-screen flex items-center justify-center">
+				<p>Redirecting to dashboard...</p>
 			</div>
 		);
 	}
 
 	return (
-		<div className="max-w-6xl mx-auto">
-			<h2 className="text-2xl font-semibold mb-6">Available Courses</h2>
-			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-				{courses.map((course) => {
-					const isEnrolled = isEnrolledInCourse(course._id);
-					const isStarting = startingCourse === course._id;
-					const userCourse = userCourses?.find(
-						(uc) => uc.courseId === course._id,
-					);
-					const completedModules = userCourse?.completedModules?.length || 0;
-					const progressPercentage = isEnrolled
-						? Math.round((completedModules / course.modules.length) * 100)
-						: 0;
+		<div className="min-h-screen bg-gradient-to-br from-background to-muted/40">
+			<header className="sticky top-0 z-10 bg-background/80 backdrop-blur-md border-b border-border">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="flex justify-between items-center py-4">
+						<div className="flex items-center gap-3">
+							<div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+								<Image
+									className="size-4"
+									src="/salutis.svg"
+									alt="Salutis logo"
+									width={24}
+									height={24}
+								/>
+							</div>
+							<span className="text-xl font-bold text-foreground">Salutis</span>
+						</div>
+						<div className="flex items-center gap-4">
+							<Button variant="ghost" onClick={() => router.push("/signin")}>
+								Sign In
+							</Button>
+							<Button onClick={() => router.push("/signin")}>
+								Get Started
+							</Button>
+						</div>
+					</div>
+				</div>
+			</header>
 
-					return (
-						<Card
-							key={course._id}
-							className="hover:shadow-lg transition-shadow"
+			<main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+				<div className="py-20 text-center">
+					<h1 className="text-5xl md:text-6xl font-bold text-foreground mb-6">
+						Your Mental Health <span className="text-primary">Companion</span>
+					</h1>
+					<p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
+						Take control of your mental wellness with evidence-based courses
+						designed to help you understand, cope with, and overcome various
+						mental health challenges.
+					</p>
+					<div className="flex flex-col sm:flex-row gap-4 justify-center">
+						<Button
+							size="lg"
+							onClick={() => router.push("/signin")}
+							className="text-lg px-8 py-3"
 						>
-							<CardHeader>
-								<div className="flex items-center justify-between mb-2">
-									<CardTitle className="text-lg">{course.title}</CardTitle>
-									{isEnrolled && (
-										<span className="text-xs bg-primary/10 text-primary px-2 py-1 rounded-full">
-											{userCourse?.isCompleted
-												? "Completed"
-												: `${progressPercentage}%`}
-										</span>
-									)}
-								</div>
-								<CardDescription>{course.description}</CardDescription>
+							Start Your Journey
+						</Button>
+						<Button
+							size="lg"
+							variant="outline"
+							onClick={() => router.push("/signin")}
+							className="text-lg px-8 py-3"
+						>
+							Learn More
+						</Button>
+					</div>
+				</div>
 
-								{isEnrolled && (
-									<div className="w-full bg-muted rounded-full h-1.5 mt-3">
-										<div
-											className="bg-primary h-1.5 rounded-full transition-all duration-300"
-											style={{ width: `${progressPercentage}%` }}
-										/>
-									</div>
-								)}
-							</CardHeader>
-							<CardContent>
-								<div className="space-y-2 mb-4">
-									<p className="text-sm font-medium text-muted-foreground">
-										Modules:
-									</p>
-									<ul className="text-sm space-y-1">
-										{course.modules.map((module) => (
-											<li key={module} className="flex items-center gap-2">
-												<div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
-												{module}
-											</li>
-										))}
-									</ul>
-								</div>
-								{isEnrolled ? (
-									<Button
-										className="w-full"
-										onClick={() => handleViewCourse(course._id)}
-										variant="outline"
-									>
-										Continue Course
-									</Button>
-								) : (
-									<Button
-										className="w-full"
-										onClick={() => handleStartCourse(course._id)}
-										disabled={isStarting || !isAuthenticated}
-									>
-										{isStarting ? "Starting..." : "Start Course"}
-									</Button>
-								)}
-							</CardContent>
-						</Card>
-					);
-				})}
-			</div>
+				<div className="py-20">
+					<h2 className="text-3xl font-bold text-center text-foreground mb-12">
+						Comprehensive Mental Health Support
+					</h2>
+					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+						{[
+							{
+								title: "Depression Support",
+								description:
+									"Learn to recognize symptoms, develop coping strategies, and find your path to recovery.",
+								icon: "💙",
+							},
+							{
+								title: "Anxiety Management",
+								description:
+									"Master techniques to manage panic disorders and reduce anxiety in daily life.",
+								icon: "🌱",
+							},
+							{
+								title: "Trauma Recovery",
+								description:
+									"Evidence-based approaches to healing from PTSD and traumatic experiences.",
+								icon: "🌟",
+							},
+							{
+								title: "Mood Stability",
+								description:
+									"Understand and manage bipolar disorder with practical tools and insights.",
+								icon: "⚖️",
+							},
+							{
+								title: "OCD Management",
+								description:
+									"Break free from obsessive-compulsive patterns with proven strategies.",
+								icon: "🔄",
+							},
+							{
+								title: "Schizophrenia Support",
+								description:
+									"Comprehensive guidance for understanding and managing schizophrenia.",
+								icon: "🧠",
+							},
+						].map((feature) => (
+							<Card
+								key={feature.title}
+								className="hover:shadow-lg transition-shadow bg-card/60 backdrop-blur-sm"
+							>
+								<CardHeader>
+									<div className="text-3xl mb-2">{feature.icon}</div>
+									<CardTitle className="text-xl">{feature.title}</CardTitle>
+								</CardHeader>
+								<CardContent>
+									<CardDescription>{feature.description}</CardDescription>
+								</CardContent>
+							</Card>
+						))}
+					</div>
+				</div>
+
+				<div className="py-20 text-center">
+					<div className="bg-primary rounded-2xl p-12 text-primary-foreground">
+						<h2 className="text-3xl font-bold mb-4">
+							Ready to Begin Your Healing Journey?
+						</h2>
+						<p className="text-xl mb-8 opacity-90">
+							Join thousands who have found support, understanding, and hope
+							through our courses.
+						</p>
+						<Button
+							size="lg"
+							onClick={() => router.push("/signin")}
+							variant="secondary"
+							className="text-lg px-8 py-3"
+						>
+							Get Started Today
+						</Button>
+					</div>
+				</div>
+			</main>
 		</div>
 	);
 }
