@@ -2,24 +2,32 @@ import { v } from "convex/values";
 import { query, mutation } from "./_generated/server";
 import { getAuthUserId } from "@convex-dev/auth/server";
 
-// Check if courses need initialization
 export const needsInitialization = query({
 	args: {},
 	handler: async (ctx) => {
-		const courses = await ctx.db.query("courses").collect();
-		return courses.length === 0;
+		try {
+			const courses = await ctx.db.query("courses").collect();
+			return courses.length === 0;
+		} catch (error) {
+			console.error("Error checking course initialization:", error);
+			return true;
+		}
 	},
 });
 
-// Get all available courses
 export const getCourses = query({
 	args: {},
 	handler: async (ctx) => {
-		return await ctx.db.query("courses").collect();
+		try {
+			const courses = await ctx.db.query("courses").collect();
+			return courses;
+		} catch (error) {
+			console.error("Error fetching courses:", error);
+			return [];
+		}
 	},
 });
 
-// Get user's enrolled courses (also ensures courses exist)
 export const getUserCourses = query({
 	args: {},
 	handler: async (ctx) => {
@@ -33,7 +41,6 @@ export const getUserCourses = query({
 			.withIndex("by_user", (q) => q.eq("userId", userId))
 			.collect();
 
-		// Get course details for each enrolled course
 		const coursesWithDetails = await Promise.all(
 			userCourses.map(async (userCourse) => {
 				const course = await ctx.db.get(userCourse.courseId);
@@ -48,7 +55,6 @@ export const getUserCourses = query({
 	},
 });
 
-// Start a course
 export const startCourse = mutation({
 	args: {
 		courseId: v.id("courses"),
@@ -59,7 +65,6 @@ export const startCourse = mutation({
 			throw new Error("Not authenticated");
 		}
 
-		// Check if user is already enrolled in this course
 		const existingEnrollment = await ctx.db
 			.query("userCourses")
 			.withIndex("by_user_course", (q) =>
@@ -71,7 +76,6 @@ export const startCourse = mutation({
 			throw new Error("Already enrolled in this course");
 		}
 
-		// Enroll user in the course
 		const userCourseId = await ctx.db.insert("userCourses", {
 			userId,
 			courseId: args.courseId,
@@ -84,7 +88,6 @@ export const startCourse = mutation({
 	},
 });
 
-// Complete a module
 export const completeModule = mutation({
 	args: {
 		userCourseId: v.id("userCourses"),
@@ -101,14 +104,12 @@ export const completeModule = mutation({
 			throw new Error("Course not found or access denied");
 		}
 
-		// Add module to completed modules if not already completed
 		if (!userCourse.completedModules.includes(args.moduleName)) {
 			const updatedCompletedModules = [
 				...userCourse.completedModules,
 				args.moduleName,
 			];
 
-			// Get course details to check if all modules are completed
 			const course = await ctx.db.get(userCourse.courseId);
 			const isCompleted = course
 				? updatedCompletedModules.length === course.modules.length
@@ -122,11 +123,9 @@ export const completeModule = mutation({
 	},
 });
 
-// Initialize courses automatically (called internally)
 export const ensureCoursesExist = mutation({
 	args: {},
 	handler: async (ctx) => {
-		// Check if courses already exist
 		const existingCourses = await ctx.db.query("courses").collect();
 		if (existingCourses.length > 0) {
 			return {
@@ -192,7 +191,6 @@ export const ensureCoursesExist = mutation({
 			},
 		];
 
-		// Insert all courses
 		const courseIds = await Promise.all(
 			courses.map((course) => ctx.db.insert("courses", course)),
 		);
