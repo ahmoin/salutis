@@ -10,4 +10,17 @@ export default defineSchema({
 	numbers: defineTable({
 		value: v.number(),
 	}),
+	courses: defineTable({
+		title: v.string(),
+		description: v.string(),
+		modules: v.array(v.string()),
+	}),
+	userCourses: defineTable({
+		userId: v.id("users"),
+		courseId: v.id("courses"),
+		startedAt: v.number(),
+		completedModules: v.array(v.string()),
+		isCompleted: v.boolean(),
+	}).index("by_user", ["userId"])
+	  .index("by_user_course", ["userId", "courseId"]),
 });
