@@ -266,32 +266,6 @@ export default function Chat() {
 											)}
 										</div>
 									</div>
-
-									{msg.type === "assistant" && (
-										<div className="flex flex-row gap-2">
-											<Button
-												variant="outline"
-												size="sm"
-												className="py-1 px-2 h-fit text-muted-foreground"
-											>
-												<Copy className="w-4 h-4" />
-											</Button>
-											<Button
-												variant="outline"
-												size="sm"
-												className="py-1 px-2 h-fit text-muted-foreground"
-											>
-												<ThumbsUp className="w-4 h-4" />
-											</Button>
-											<Button
-												variant="outline"
-												size="sm"
-												className="py-1 px-2 h-fit text-muted-foreground"
-											>
-												<ThumbsDown className="w-4 h-4" />
-											</Button>
-										</div>
-									)}
 								</div>
 							</div>
 						</div>
