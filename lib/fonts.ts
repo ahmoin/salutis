@@ -23,7 +23,7 @@ const fontInter = Inter({
 });
 
 export const fontVariables = cn(
-	fontSans.variable,
+	fontSans,
 	fontMono.variable,
 	fontInter.variable,
 );
