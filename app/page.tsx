@@ -154,8 +154,7 @@ export default function Home() {
 							Ready to Begin Your Healing Journey?
 						</h2>
 						<p className="text-xl mb-8 opacity-90">
-							Join thousands who have found support, understanding, and hope
-							through our courses.
+							Use our resources to find support, understanding, and hope.
 						</p>
 						<Button
 							size="lg"
