@@ -15,12 +15,24 @@ import {
 } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export default function Dashboard() {
 	return (
 		<>
 			<header className="sticky top-0 z-10 bg-background p-4 border-b-2 border-zinc-800 flex flex-row justify-between items-center">
-				Salutis
+				<div className="flex flex-row items-center">
+					<div className="text-primary-foreground flex size-8 items-center justify-center rounded-md">
+						<Image
+							className="size-8"
+							src="/salutis.svg"
+							alt="Salutis logo"
+							width={48}
+							height={48}
+						/>
+					</div>
+					Salutis
+				</div>
 				<SignOutButton />
 			</header>
 			<main className="p-8 flex flex-col gap-8">
