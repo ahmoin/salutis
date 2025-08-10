@@ -2,7 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Send, Copy, ThumbsUp, ThumbsDown, Edit } from "lucide-react";
+import { Send, Edit } from "lucide-react";
 import { useState } from "react";
 import { SiteHeader } from "@/components/site-header";
 import type { JSX } from "react/jsx-runtime";
@@ -273,7 +273,6 @@ export default function Chat() {
 					<div className="shrink-0 min-w-[24px] min-h-[24px]"></div>
 				</div>
 
-				{/* Message Input */}
 				<div className="border-t border-border p-6">
 					<div className="max-w-4xl mx-auto">
 						<form onSubmit={handleSendMessage} className="flex gap-3">

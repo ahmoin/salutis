@@ -1159,7 +1159,6 @@ function ModuleContent({
 				<span>Educational Content</span>
 			</div>
 
-			{/* Video Resources */}
 			{content.videos && content.videos.length > 0 && (
 				<div className="space-y-3">
 					<h4 className="font-semibold text-foreground flex items-center gap-2">

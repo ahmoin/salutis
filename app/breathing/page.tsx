@@ -247,7 +247,7 @@ export default function BreathingExercises() {
 									• Find a comfortable position and relax your shoulders
 								</p>
 								<p className="text-sm">
-									• Follow the circle's expansion and contraction
+									• Follow the circle&apos;s expansion and contraction
 								</p>
 								<p className="text-sm">
 									• Breathe through your nose when possible
