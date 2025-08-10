@@ -69,7 +69,6 @@ function MentalHealthCourses() {
 		null,
 	);
 
-	// Automatically ensure courses exist when needed
 	useEffect(() => {
 		const initializeCourses = async () => {
 			if (needsInit === true) {
@@ -96,7 +95,6 @@ function MentalHealthCourses() {
 		try {
 			await startCourse({ courseId });
 			toast.success("Course started successfully!");
-			// Redirect to the course page
 			router.push(`/course/${courseId}`);
 		} catch (error) {
 			toast.error(

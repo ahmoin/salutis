@@ -1042,7 +1042,7 @@ function ModuleContent({
 			{!isCompleted && (
 				<div className="bg-primary/10 border border-primary/20 rounded-lg p-4 mt-6">
 					<p className="text-sm text-primary font-medium">
-						📚 Take your time to read through this content. When you're ready,
+						📚 Take your time to read through this content. When you&apos;re ready,
 						mark this module as complete to continue your learning journey.
 					</p>
 				</div>
