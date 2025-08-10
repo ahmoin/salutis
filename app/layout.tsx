@@ -51,7 +51,7 @@ export default function RootLayout({
 				>
 					<ConvexClientProvider>
 						<ThemeProvider>
-						<section className="theme-container">{children}</section>
+							<section className="theme-container">{children}</section>
 							<Toaster position="top-center" richColors />
 						</ThemeProvider>
 					</ConvexClientProvider>

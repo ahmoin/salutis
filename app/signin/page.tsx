@@ -68,22 +68,21 @@ export default function SignIn() {
 									</span>
 								</div>
 								<form
-									onSubmit={(e) => {
+									onSubmit={async (e) => {
 										e.preventDefault();
 										const formData = new FormData(e.target as HTMLFormElement);
 										formData.set("flow", flow);
-										void signIn("password", formData)
-											.catch((error) => {
-												if (error?.message) {
-													toast.error(
-														"Could not sign in, did you mean to sign up?",
-													);
-												}
-											})
-											.then(() => {
-												toast.success("Signed in successfully!");
-												router.push("/dashboard");
-											});
+
+										try {
+											await signIn("password", formData);
+											toast.success("Signed in successfully!");
+											router.push("/dashboard");
+										} catch (error) {
+											console.warn(error);
+											toast.error(
+												"Could not sign in, did you mean to sign up?",
+											);
+										}
 									}}
 								>
 									<div className="grid gap-6">

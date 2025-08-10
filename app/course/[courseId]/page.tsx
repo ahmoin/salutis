@@ -225,6 +225,10 @@ function ModuleContent({
 				string,
 				{
 					icon: React.ReactNode;
+					videos?: Array<{
+						title: string;
+						url: string;
+					}>;
 					sections: Array<{
 						title: string;
 						content: string[];
@@ -236,6 +240,16 @@ function ModuleContent({
 			"depression course": {
 				"symptoms of depression": {
 					icon: <AlertCircle className="w-5 h-5 text-blue-500" />,
+					videos: [
+						{
+							title: "Understanding Depression Symptoms",
+							url: "https://youtu.be/d7NPnvKFs2Y",
+						},
+						{
+							title: "Depression Signs and Symptoms",
+							url: "https://youtu.be/-MNp9bmNI60",
+						},
+					],
 					sections: [
 						{
 							title: "Common Symptoms",
@@ -275,6 +289,16 @@ function ModuleContent({
 				},
 				"how to cope with depression": {
 					icon: <Heart className="w-5 h-5 text-red-500" />,
+					videos: [
+						{
+							title: "Coping with Depression Strategies",
+							url: "https://youtu.be/8Su5VtKeXU8",
+						},
+						{
+							title: "Managing Depression Daily",
+							url: "https://youtu.be/xzth1BMx0aw",
+						},
+					],
 					sections: [
 						{
 							title: "Daily Coping Strategies",
@@ -315,6 +339,12 @@ function ModuleContent({
 				},
 				"how to overcome depression": {
 					icon: <Brain className="w-5 h-5 text-green-500" />,
+					videos: [
+						{
+							title: "Overcoming Depression - Complete Guide",
+							url: "https://youtu.be/Cv3bj1M96fQ",
+						},
+					],
 					sections: [
 						{
 							title: "Professional Treatment Options",
@@ -436,6 +466,16 @@ function ModuleContent({
 			"bipolar disorder course": {
 				"symptoms of bipolar disorder": {
 					icon: <AlertCircle className="w-5 h-5 text-yellow-500" />,
+					videos: [
+						{
+							title: "Understanding Bipolar Disorder Symptoms",
+							url: "https://youtu.be/D1AO6Gm5o6A",
+						},
+						{
+							title: "Bipolar Disorder Signs and Symptoms",
+							url: "https://youtu.be/wrkMjgQs9rs",
+						},
+					],
 					sections: [
 						{
 							title: "Manic Episode Symptoms",
@@ -481,6 +521,16 @@ function ModuleContent({
 				},
 				"how to cope with bipolar disorder": {
 					icon: <Heart className="w-5 h-5 text-pink-500" />,
+					videos: [
+						{
+							title: "Coping with Bipolar Disorder",
+							url: "https://youtu.be/llOPqKD-s4w",
+						},
+						{
+							title: "Managing Bipolar Disorder Daily",
+							url: "https://youtu.be/pXEgzMv0Lqw",
+						},
+					],
 					sections: [
 						{
 							title: "Daily Management Strategies",
@@ -525,6 +575,12 @@ function ModuleContent({
 				},
 				"how to overcome bipolar disorder": {
 					icon: <Brain className="w-5 h-5 text-purple-500" />,
+					videos: [
+						{
+							title: "Overcoming Bipolar Disorder - Treatment and Recovery",
+							url: "https://youtu.be/3-J5hdUuxIA",
+						},
+					],
 					sections: [
 						{
 							title: "Professional Treatment",
@@ -570,6 +626,16 @@ function ModuleContent({
 			"post-traumatic stress disorder (ptsd) course": {
 				"symptoms of ptsd": {
 					icon: <AlertCircle className="w-5 h-5 text-red-500" />,
+					videos: [
+						{
+							title: "Understanding PTSD Symptoms",
+							url: "https://youtu.be/wsgcCbdZW48",
+						},
+						{
+							title: "PTSD Signs and Symptoms",
+							url: "https://youtu.be/6tgy4d-pxuY",
+						},
+					],
 					sections: [
 						{
 							title: "Re-experiencing Symptoms",
@@ -612,6 +678,16 @@ function ModuleContent({
 				},
 				"how to cope with ptsd": {
 					icon: <Heart className="w-5 h-5 text-orange-500" />,
+					videos: [
+						{
+							title: "Coping with PTSD - Effective Strategies",
+							url: "https://youtu.be/XVK2srEKXao",
+						},
+						{
+							title: "Managing PTSD Symptoms",
+							url: "https://youtu.be/U3MMObxThvg",
+						},
+					],
 					sections: [
 						{
 							title: "Immediate Coping Strategies",
@@ -655,6 +731,12 @@ function ModuleContent({
 				},
 				"how to overcome ptsd": {
 					icon: <Brain className="w-5 h-5 text-green-500" />,
+					videos: [
+						{
+							title: "Overcoming PTSD - Recovery Journey",
+							url: "https://youtu.be/13DFLHv1fv8",
+						},
+					],
 					sections: [
 						{
 							title: "Evidence-Based Treatments",
@@ -700,6 +782,16 @@ function ModuleContent({
 			"obsessive compulsive disorder (ocd) course": {
 				"symptoms of ocd": {
 					icon: <AlertCircle className="w-5 h-5 text-blue-500" />,
+					videos: [
+						{
+							title: "Understanding OCD Symptoms",
+							url: "https://youtu.be/4euYnqMWT5w",
+						},
+						{
+							title: "OCD Signs and Symptoms Explained",
+							url: "https://youtu.be/dQXx_2rFPzQ",
+						},
+					],
 					sections: [
 						{
 							title: "Common Obsessions",
@@ -744,6 +836,16 @@ function ModuleContent({
 				},
 				"how to cope with ocd": {
 					icon: <Heart className="w-5 h-5 text-teal-500" />,
+					videos: [
+						{
+							title: "Coping with OCD - Practical Strategies",
+							url: "https://youtu.be/R2O764fWN3c",
+						},
+						{
+							title: "Managing OCD Daily",
+							url: "https://youtu.be/aulhPVmySHE",
+						},
+					],
 					sections: [
 						{
 							title: "Resisting Compulsions",
@@ -787,6 +889,12 @@ function ModuleContent({
 				},
 				"how to overcome ocd": {
 					icon: <Brain className="w-5 h-5 text-indigo-500" />,
+					videos: [
+						{
+							title: "Overcoming OCD - Treatment and Recovery",
+							url: "https://youtu.be/mB2bvHRgWUQ",
+						},
+					],
 					sections: [
 						{
 							title: "Professional Treatment",
@@ -832,6 +940,16 @@ function ModuleContent({
 			"schizophrenia course": {
 				"symptoms of schizophrenia": {
 					icon: <AlertCircle className="w-5 h-5 text-purple-500" />,
+					videos: [
+						{
+							title: "Understanding Schizophrenia Symptoms",
+							url: "https://youtu.be/5w01XPxaPFI",
+						},
+						{
+							title: "Schizophrenia Signs and Symptoms",
+							url: "https://youtu.be/hDroA6eawsE",
+						},
+					],
 					sections: [
 						{
 							title: "Positive Symptoms",
@@ -873,6 +991,12 @@ function ModuleContent({
 				},
 				"how to cope with schizophrenia": {
 					icon: <Heart className="w-5 h-5 text-red-500" />,
+					videos: [
+						{
+							title: "Coping Skills for Schizophrenia",
+							url: "https://youtu.be/0-fAqgTYmKs",
+						},
+					],
 					sections: [
 						{
 							title: "Managing Symptoms",
@@ -916,6 +1040,12 @@ function ModuleContent({
 				},
 				"how to overcome schizophrenia": {
 					icon: <Brain className="w-5 h-5 text-green-500" />,
+					videos: [
+						{
+							title: "Recovery from Schizophrenia",
+							url: "https://youtu.be/57bR35CA3RE",
+						},
+					],
 					sections: [
 						{
 							title: "Comprehensive Treatment",
@@ -1003,6 +1133,41 @@ function ModuleContent({
 				<span>Educational Content</span>
 			</div>
 
+			{/* Video Resources */}
+			{content.videos && content.videos.length > 0 && (
+				<div className="space-y-3">
+					<h4 className="font-semibold text-foreground flex items-center gap-2">
+						<BookOpen className="w-4 h-4" />
+						Video Resources
+					</h4>
+					<div className="grid gap-3">
+						{content.videos.map((video, index) => (
+							<div
+								key={index}
+								className="bg-muted/30 rounded-lg p-4 border border-border/50"
+							>
+								<div className="flex items-center justify-between">
+									<div className="flex-1">
+										<h5 className="font-medium text-sm mb-1">{video.title}</h5>
+										<p className="text-xs text-muted-foreground">
+											Educational video resource
+										</p>
+									</div>
+									<a
+										href={video.url}
+										target="_blank"
+										rel="noopener noreferrer"
+										className="ml-3 px-3 py-1.5 bg-primary text-primary-foreground rounded-md text-xs font-medium hover:bg-primary/90 transition-colors"
+									>
+										Watch Video
+									</a>
+								</div>
+							</div>
+						))}
+					</div>
+				</div>
+			)}
+
 			{content.sections.map(
 				(section: { title: string; content: string[]; tips?: string[] }) => (
 					<div key={section.title} className="space-y-3">
@@ -1042,8 +1207,9 @@ function ModuleContent({
 			{!isCompleted && (
 				<div className="bg-primary/10 border border-primary/20 rounded-lg p-4 mt-6">
 					<p className="text-sm text-primary font-medium">
-						📚 Take your time to read through this content. When you&apos;re ready,
-						mark this module as complete to continue your learning journey.
+						📚 Take your time to read through this content. When you&apos;re
+						ready, mark this module as complete to continue your learning
+						journey.
 					</p>
 				</div>
 			)}
