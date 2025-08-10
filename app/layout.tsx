@@ -45,13 +45,13 @@ export default function RootLayout({
 				</head>
 				<body
 					className={cn(
-						"text-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)] bg-background",
+						"text-foreground group/body overscroll-none font-sans antialiased [--footer-height:calc(var(--spacing)*14)] [--header-height:calc(var(--spacing)*14)] xl:[--footer-height:calc(var(--spacing)*24)] theme-violet bg-background",
 						fontVariables,
 					)}
 				>
 					<ConvexClientProvider>
 						<ThemeProvider>
-							{children}
+						<section className="theme-container">{children}</section>
 							<Toaster position="top-center" richColors />
 						</ThemeProvider>
 					</ConvexClientProvider>

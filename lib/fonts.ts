@@ -1,6 +1,6 @@
 import {
 	Geist_Mono as FontMono,
-	Geist as FontSans,
+	Merriweather as FontSans,
 	Inter,
 } from "next/font/google";
 
@@ -8,7 +8,7 @@ import { cn } from "@/lib/utils";
 
 const fontSans = FontSans({
 	subsets: ["latin"],
-	variable: "--font-sans",
+	weight: ["300", "400", "700", "900"],
 });
 
 const fontMono = FontMono({
