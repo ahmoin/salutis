@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 	title: "Salutis",
 	description: "A work in progress.",
 	icons: {
-		icon: "/convex.svg",
+		icon: "/salutis.svg",
 	},
 };
 
