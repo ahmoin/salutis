@@ -34,7 +34,9 @@ export default function CoursePage() {
 			});
 			toast.success(`Completed: ${moduleName}`);
 		} catch (error) {
-			toast.error("Failed to complete module");
+			if (error) {
+				toast.error("Failed to complete module");
+			}
 		}
 	};
 	
