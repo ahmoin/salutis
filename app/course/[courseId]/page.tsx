@@ -104,7 +104,6 @@ export default function CoursePage() {
 	return (
 		<div className="min-h-screen p-8">
 			<div className="max-w-4xl mx-auto">
-				{/* Header */}
 				<div className="mb-8">
 					<Button
 						variant="ghost"
@@ -128,7 +127,6 @@ export default function CoursePage() {
 						{course.description}
 					</p>
 
-					{/* Progress Bar */}
 					<div className="w-full bg-muted rounded-full h-2 mb-6">
 						<div
 							className="bg-primary h-2 rounded-full transition-all duration-300"
@@ -137,7 +135,6 @@ export default function CoursePage() {
 					</div>
 				</div>
 
-				{/* Course Modules */}
 				<div className="space-y-6">
 					<h2 className="text-2xl font-semibold mb-6">Course Modules</h2>
 
@@ -187,7 +184,6 @@ export default function CoursePage() {
 					})}
 				</div>
 
-				{/* Completion Message */}
 				{userCourse.isCompleted && (
 					<Card className="mt-8 border-green-200 bg-green-50">
 						<CardContent className="pt-6">
@@ -437,6 +433,531 @@ function ModuleContent({
 					],
 				},
 			},
+			"bipolar disorder course": {
+				"symptoms of bipolar disorder": {
+					icon: <AlertCircle className="w-5 h-5 text-yellow-500" />,
+					sections: [
+						{
+							title: "Manic Episode Symptoms",
+							content: [
+								"Elevated, expansive, or irritable mood lasting at least one week",
+								"Decreased need for sleep (feeling rested after only 3 hours)",
+								"Grandiosity or inflated self-esteem",
+								"More talkative than usual or pressure to keep talking",
+								"Racing thoughts or flight of ideas",
+								"Distractibility and difficulty concentrating",
+								"Increased goal-directed activity or psychomotor agitation",
+								"Risky behavior with potential negative consequences",
+							],
+						},
+						{
+							title: "Depressive Episode Symptoms",
+							content: [
+								"Persistent sad, anxious, or empty mood",
+								"Loss of interest in activities once enjoyed",
+								"Significant weight loss or gain",
+								"Sleep disturbances (insomnia or hypersomnia)",
+								"Fatigue or loss of energy",
+								"Feelings of worthlessness or excessive guilt",
+								"Difficulty thinking, concentrating, or making decisions",
+								"Recurrent thoughts of death or suicide",
+							],
+						},
+						{
+							title: "Mixed Episodes",
+							content: [
+								"Symptoms of both mania and depression occurring simultaneously",
+								"Rapid cycling between mood states",
+								"Increased risk of suicide during mixed episodes",
+								"Agitation combined with depressed mood",
+							],
+							tips: [
+								"Track mood changes in a daily mood chart",
+								"Learn to recognize early warning signs",
+								"Maintain regular sleep and eating schedules",
+							],
+						},
+					],
+				},
+				"how to cope with bipolar disorder": {
+					icon: <Heart className="w-5 h-5 text-pink-500" />,
+					sections: [
+						{
+							title: "Daily Management Strategies",
+							content: [
+								"Maintain a consistent daily routine and sleep schedule",
+								"Use mood tracking apps or journals to monitor patterns",
+								"Take medications as prescribed, even when feeling well",
+								"Avoid alcohol and recreational drugs",
+								"Practice stress reduction techniques like meditation",
+								"Stay connected with supportive family and friends",
+								"Recognize and avoid personal triggers",
+							],
+						},
+						{
+							title: "Managing Manic Episodes",
+							content: [
+								"Stick to your medication regimen",
+								"Avoid making major decisions during manic periods",
+								"Limit stimulating activities and environments",
+								"Get adequate sleep (use sleep aids if prescribed)",
+								"Remove access to credit cards or large amounts of money",
+								"Have a trusted person monitor your behavior",
+							],
+						},
+						{
+							title: "Managing Depressive Episodes",
+							content: [
+								"Maintain basic self-care routines",
+								"Engage in gentle physical activity",
+								"Practice mindfulness and grounding techniques",
+								"Reach out to your support network",
+								"Follow your treatment plan consistently",
+								"Avoid isolation and maintain social connections",
+							],
+							tips: [
+								"Create a crisis plan with emergency contacts",
+								"Keep a list of warning signs visible",
+								"Build a strong support team including professionals",
+							],
+						},
+					],
+				},
+				"how to overcome bipolar disorder": {
+					icon: <Brain className="w-5 h-5 text-purple-500" />,
+					sections: [
+						{
+							title: "Professional Treatment",
+							content: [
+								"Mood stabilizers (lithium, anticonvulsants)",
+								"Antipsychotic medications for severe episodes",
+								"Cognitive Behavioral Therapy (CBT)",
+								"Interpersonal and Social Rhythm Therapy (IPSRT)",
+								"Family-focused therapy",
+								"Group therapy and peer support programs",
+							],
+						},
+						{
+							title: "Long-term Stability",
+							content: [
+								"Develop excellent medication adherence habits",
+								"Build a comprehensive support network",
+								"Learn advanced stress management techniques",
+								"Create structured daily routines",
+								"Maintain regular medical and therapy appointments",
+								"Educate family and friends about the condition",
+							],
+						},
+						{
+							title: "Lifestyle Modifications",
+							content: [
+								"Prioritize consistent sleep hygiene",
+								"Maintain regular exercise routine",
+								"Follow a balanced, nutritious diet",
+								"Limit caffeine and avoid alcohol",
+								"Practice regular relaxation techniques",
+								"Engage in meaningful activities and hobbies",
+							],
+							tips: [
+								"Recovery is possible with proper treatment",
+								"Many people with bipolar disorder live full, productive lives",
+								"Consistency in treatment is key to long-term success",
+							],
+						},
+					],
+				},
+			},
+			"post-traumatic stress disorder (ptsd) course": {
+				"symptoms of ptsd": {
+					icon: <AlertCircle className="w-5 h-5 text-red-500" />,
+					sections: [
+						{
+							title: "Re-experiencing Symptoms",
+							content: [
+								"Intrusive memories or flashbacks of the traumatic event",
+								"Distressing dreams or nightmares related to the trauma",
+								"Severe emotional distress when exposed to trauma reminders",
+								"Physical reactions (sweating, nausea, rapid heartbeat) to triggers",
+								"Feeling as if the traumatic event is happening again",
+							],
+						},
+						{
+							title: "Avoidance Symptoms",
+							content: [
+								"Avoiding thoughts, feelings, or conversations about the trauma",
+								"Avoiding places, people, or activities that trigger memories",
+								"Inability to remember important aspects of the traumatic event",
+								"Diminished interest in significant activities",
+								"Feeling detached or estranged from others",
+								"Restricted range of emotions or feeling emotionally numb",
+							],
+						},
+						{
+							title: "Hyperarousal Symptoms",
+							content: [
+								"Difficulty falling or staying asleep",
+								"Irritability or outbursts of anger",
+								"Difficulty concentrating",
+								"Hypervigilance (constantly scanning for danger)",
+								"Exaggerated startle response",
+								"Physical symptoms like headaches or digestive issues",
+							],
+							tips: [
+								"Symptoms must persist for more than one month for PTSD diagnosis",
+								"Not everyone who experiences trauma develops PTSD",
+								"Seeking help early can prevent symptoms from worsening",
+							],
+						},
+					],
+				},
+				"how to cope with ptsd": {
+					icon: <Heart className="w-5 h-5 text-orange-500" />,
+					sections: [
+						{
+							title: "Immediate Coping Strategies",
+							content: [
+								"Practice grounding techniques (5-4-3-2-1 sensory method)",
+								"Use deep breathing exercises during flashbacks",
+								"Create a safe space in your home with comforting items",
+								"Develop a daily routine to provide structure and predictability",
+								"Practice progressive muscle relaxation",
+								"Use positive self-talk and affirmations",
+							],
+						},
+						{
+							title: "Managing Triggers",
+							content: [
+								"Identify and document your specific triggers",
+								"Develop coping strategies for each identified trigger",
+								"Practice gradual exposure with professional guidance",
+								"Use mindfulness to stay present during difficult moments",
+								"Create safety plans for high-risk situations",
+								"Build a support network of trusted individuals",
+							],
+						},
+						{
+							title: "Self-Care Practices",
+							content: [
+								"Maintain regular sleep schedule and good sleep hygiene",
+								"Engage in regular physical exercise",
+								"Practice relaxation techniques like yoga or meditation",
+								"Limit alcohol and avoid recreational drugs",
+								"Eat nutritious meals at regular times",
+								"Engage in creative or expressive activities",
+							],
+							tips: [
+								"Healing is not linear - expect ups and downs",
+								"Be patient and compassionate with yourself",
+								"Small steps forward are still progress",
+							],
+						},
+					],
+				},
+				"how to overcome ptsd": {
+					icon: <Brain className="w-5 h-5 text-green-500" />,
+					sections: [
+						{
+							title: "Evidence-Based Treatments",
+							content: [
+								"Trauma-Focused Cognitive Behavioral Therapy (TF-CBT)",
+								"Eye Movement Desensitization and Reprocessing (EMDR)",
+								"Prolonged Exposure Therapy",
+								"Cognitive Processing Therapy (CPT)",
+								"Medications: SSRIs, SNRIs for symptom management",
+								"Group therapy with other trauma survivors",
+							],
+						},
+						{
+							title: "Building Resilience",
+							content: [
+								"Develop strong social support networks",
+								"Learn healthy coping mechanisms",
+								"Practice stress management techniques",
+								"Build self-efficacy through achievable goals",
+								"Cultivate meaning and purpose in life",
+								"Engage in community or volunteer activities",
+							],
+						},
+						{
+							title: "Long-term Recovery",
+							content: [
+								"Continue therapy even after symptoms improve",
+								"Maintain healthy lifestyle habits",
+								"Stay connected with support systems",
+								"Practice ongoing self-care and stress management",
+								"Consider helping others who have experienced trauma",
+								"Celebrate progress and milestones in recovery",
+							],
+							tips: [
+								"Recovery is possible with proper treatment and support",
+								"Many trauma survivors go on to live fulfilling lives",
+								"Post-traumatic growth can occur alongside healing",
+							],
+						},
+					],
+				},
+			},
+			"obsessive compulsive disorder (ocd) course": {
+				"symptoms of ocd": {
+					icon: <AlertCircle className="w-5 h-5 text-blue-500" />,
+					sections: [
+						{
+							title: "Common Obsessions",
+							content: [
+								"Fear of contamination or germs",
+								"Unwanted aggressive or violent thoughts",
+								"Excessive concern with order, symmetry, or exactness",
+								"Religious or moral concerns (scrupulosity)",
+								"Fear of harming oneself or others",
+								"Unwanted sexual thoughts or images",
+								"Superstitious fears about numbers, colors, or arrangements",
+							],
+						},
+						{
+							title: "Common Compulsions",
+							content: [
+								"Excessive hand washing or cleaning rituals",
+								"Checking behaviors (locks, appliances, etc.)",
+								"Counting, repeating, or arranging objects",
+								"Mental rituals (prayers, counting, repeating phrases)",
+								"Seeking reassurance from others repeatedly",
+								"Avoiding situations that trigger obsessions",
+								"Hoarding or inability to discard items",
+							],
+						},
+						{
+							title: "Impact on Daily Life",
+							content: [
+								"Rituals take up significant time (more than 1 hour daily)",
+								"Interference with work, school, or social activities",
+								"Distress when unable to perform compulsions",
+								"Recognition that obsessions/compulsions are excessive",
+								"Avoidance of situations that trigger symptoms",
+							],
+							tips: [
+								"OCD is a medical condition, not a character flaw",
+								"Symptoms can fluctuate in severity over time",
+								"Early intervention leads to better outcomes",
+							],
+						},
+					],
+				},
+				"how to cope with ocd": {
+					icon: <Heart className="w-5 h-5 text-teal-500" />,
+					sections: [
+						{
+							title: "Resisting Compulsions",
+							content: [
+								"Practice delaying compulsions for increasing periods",
+								"Use the 'STOP' technique: Stop, Take a breath, Observe, Proceed mindfully",
+								"Challenge the need for certainty or perfection",
+								"Accept uncertainty as a normal part of life",
+								"Practice mindfulness to observe thoughts without acting",
+								"Use distraction techniques during urges",
+							],
+						},
+						{
+							title: "Managing Obsessive Thoughts",
+							content: [
+								"Recognize that thoughts are not facts or predictions",
+								"Practice thought defusion techniques",
+								"Avoid mental arguing with obsessive thoughts",
+								"Label thoughts as 'OCD thoughts' rather than personal thoughts",
+								"Use humor or absurdity to reduce thought power",
+								"Practice acceptance rather than fighting thoughts",
+							],
+						},
+						{
+							title: "Daily Management",
+							content: [
+								"Maintain regular sleep and exercise routines",
+								"Practice stress reduction techniques",
+								"Build a support network of understanding people",
+								"Educate family and friends about OCD",
+								"Keep a symptom diary to track patterns",
+								"Celebrate small victories in resisting compulsions",
+							],
+							tips: [
+								"Progress may be slow but every small step counts",
+								"Setbacks are normal and part of the recovery process",
+								"Focus on function and quality of life, not perfect control",
+							],
+						},
+					],
+				},
+				"how to overcome ocd": {
+					icon: <Brain className="w-5 h-5 text-indigo-500" />,
+					sections: [
+						{
+							title: "Professional Treatment",
+							content: [
+								"Exposure and Response Prevention (ERP) therapy",
+								"Cognitive Behavioral Therapy (CBT) for OCD",
+								"Acceptance and Commitment Therapy (ACT)",
+								"Medications: SSRIs at higher doses than for depression",
+								"Intensive outpatient programs for severe cases",
+								"Group therapy with other OCD sufferers",
+							],
+						},
+						{
+							title: "Building Long-term Recovery",
+							content: [
+								"Develop a hierarchy of feared situations for gradual exposure",
+								"Practice regular exposure exercises to maintain gains",
+								"Build tolerance for uncertainty and imperfection",
+								"Develop healthy coping strategies for stress",
+								"Maintain medication compliance if prescribed",
+								"Continue therapy sessions even after improvement",
+							],
+						},
+						{
+							title: "Lifestyle and Support",
+							content: [
+								"Join OCD support groups or online communities",
+								"Educate yourself about OCD through reputable sources",
+								"Practice regular self-care and stress management",
+								"Maintain social connections and activities",
+								"Consider family therapy to improve relationships",
+								"Advocate for yourself in treatment settings",
+							],
+							tips: [
+								"Recovery is possible with proper treatment",
+								"Many people with OCD live normal, fulfilling lives",
+								"Treatment works best when you're actively engaged",
+							],
+						},
+					],
+				},
+			},
+			"schizophrenia course": {
+				"symptoms of schizophrenia": {
+					icon: <AlertCircle className="w-5 h-5 text-purple-500" />,
+					sections: [
+						{
+							title: "Positive Symptoms",
+							content: [
+								"Hallucinations (hearing, seeing, feeling things that aren't there)",
+								"Delusions (false beliefs not based in reality)",
+								"Disorganized thinking and speech",
+								"Abnormal motor behavior or catatonia",
+								"Paranoid thoughts or feelings of persecution",
+							],
+						},
+						{
+							title: "Negative Symptoms",
+							content: [
+								"Reduced emotional expression (flat affect)",
+								"Decreased motivation and ability to begin activities",
+								"Reduced speaking (alogia)",
+								"Diminished ability to experience pleasure",
+								"Social withdrawal and isolation",
+								"Neglect of personal hygiene and self-care",
+							],
+						},
+						{
+							title: "Cognitive Symptoms",
+							content: [
+								"Difficulty concentrating or paying attention",
+								"Problems with working memory",
+								"Impaired executive functioning",
+								"Difficulty processing information",
+								"Problems with decision-making",
+							],
+							tips: [
+								"Early intervention improves long-term outcomes",
+								"Symptoms typically emerge in late teens to early thirties",
+								"Professional diagnosis is essential for proper treatment",
+							],
+						},
+					],
+				},
+				"how to cope with schizophrenia": {
+					icon: <Heart className="w-5 h-5 text-red-500" />,
+					sections: [
+						{
+							title: "Managing Symptoms",
+							content: [
+								"Take medications consistently as prescribed",
+								"Develop reality testing skills for delusions",
+								"Use coping strategies for hallucinations",
+								"Maintain structured daily routines",
+								"Practice stress reduction techniques",
+								"Stay connected with treatment team",
+							],
+						},
+						{
+							title: "Daily Living Skills",
+							content: [
+								"Break tasks into smaller, manageable steps",
+								"Use reminders and organizational tools",
+								"Maintain personal hygiene and self-care routines",
+								"Practice social skills in safe environments",
+								"Engage in meaningful activities and hobbies",
+								"Build and maintain supportive relationships",
+							],
+						},
+						{
+							title: "Crisis Management",
+							content: [
+								"Recognize early warning signs of relapse",
+								"Have a crisis plan with emergency contacts",
+								"Know when to seek immediate professional help",
+								"Maintain regular contact with healthcare providers",
+								"Avoid alcohol and recreational drugs",
+								"Manage stress through healthy coping mechanisms",
+							],
+							tips: [
+								"Recovery is a journey, not a destination",
+								"Focus on managing symptoms rather than eliminating them",
+								"Build a strong support network of family, friends, and professionals",
+							],
+						},
+					],
+				},
+				"how to overcome schizophrenia": {
+					icon: <Brain className="w-5 h-5 text-green-500" />,
+					sections: [
+						{
+							title: "Comprehensive Treatment",
+							content: [
+								"Antipsychotic medications for symptom management",
+								"Cognitive Behavioral Therapy (CBT) for psychosis",
+								"Social skills training",
+								"Vocational rehabilitation programs",
+								"Family therapy and education",
+								"Case management services",
+							],
+						},
+						{
+							title: "Building Recovery",
+							content: [
+								"Set realistic, achievable goals",
+								"Develop independent living skills",
+								"Pursue education or vocational training",
+								"Build meaningful relationships and social connections",
+								"Engage in community activities and support groups",
+								"Practice self-advocacy and empowerment",
+							],
+						},
+						{
+							title: "Long-term Management",
+							content: [
+								"Maintain consistent medication adherence",
+								"Continue regular therapy and medical appointments",
+								"Develop strong coping strategies for ongoing symptoms",
+								"Build a comprehensive support network",
+								"Focus on strengths and abilities rather than limitations",
+								"Advocate for yourself in healthcare and social settings",
+							],
+							tips: [
+								"Many people with schizophrenia live independent, fulfilling lives",
+								"Treatment adherence is crucial for long-term stability",
+								"Recovery looks different for everyone - focus on your own journey",
+							],
+						},
+					],
+				},
+			},
 		};
 
 		// Get content for the specific course and module
@@ -482,39 +1003,41 @@ function ModuleContent({
 				<span>Educational Content</span>
 			</div>
 
-			{content.sections.map((section, index) => (
-				<div key={index} className="space-y-3">
-					<h4 className="font-semibold text-foreground">{section.title}</h4>
-					<ul className="space-y-2">
-						{section.content.map((item, itemIndex) => (
-							<li key={itemIndex} className="flex items-start gap-2 text-sm">
-								<div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
-								<span className="text-muted-foreground">{item}</span>
-							</li>
-						))}
-					</ul>
+			{content.sections.map(
+				(section: { title: string; content: string[]; tips?: string[] }) => (
+					<div key={section.title} className="space-y-3">
+						<h4 className="font-semibold text-foreground">{section.title}</h4>
+						<ul className="space-y-2">
+							{section.content.map((item) => (
+								<li key={item} className="flex items-start gap-2 text-sm">
+									<div className="w-1.5 h-1.5 bg-primary rounded-full mt-2 flex-shrink-0" />
+									<span className="text-muted-foreground">{item}</span>
+								</li>
+							))}
+						</ul>
 
-					{section.tips && (
-						<div className="bg-muted/50 rounded-lg p-4 mt-4">
-							<h5 className="font-medium text-sm mb-2 flex items-center gap-2">
-								<Heart className="w-4 h-4 text-primary" />
-								Helpful Tips
-							</h5>
-							<ul className="space-y-1">
-								{section.tips.map((tip, tipIndex) => (
-									<li
-										key={tipIndex}
-										className="text-sm text-muted-foreground flex items-start gap-2"
-									>
-										<div className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0" />
-										{tip}
-									</li>
-								))}
-							</ul>
-						</div>
-					)}
-				</div>
-			))}
+						{section.tips && (
+							<div className="bg-muted/50 rounded-lg p-4 mt-4">
+								<h5 className="font-medium text-sm mb-2 flex items-center gap-2">
+									<Heart className="w-4 h-4 text-primary" />
+									Helpful Tips
+								</h5>
+								<ul className="space-y-1">
+									{section.tips.map((tip) => (
+										<li
+											key={tip}
+											className="text-sm text-muted-foreground flex items-start gap-2"
+										>
+											<div className="w-1 h-1 bg-primary rounded-full mt-2 flex-shrink-0" />
+											{tip}
+										</li>
+									))}
+								</ul>
+							</div>
+						)}
+					</div>
+				),
+			)}
 
 			{!isCompleted && (
 				<div className="bg-primary/10 border border-primary/20 rounded-lg p-4 mt-6">

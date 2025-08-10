@@ -168,7 +168,6 @@ function MentalHealthCourses() {
 								</div>
 								<CardDescription>{course.description}</CardDescription>
 
-								{/* Progress bar for enrolled courses */}
 								{isEnrolled && (
 									<div className="w-full bg-muted rounded-full h-1.5 mt-3">
 										<div
