@@ -7,6 +7,7 @@ import { fontVariables } from "@/lib/fonts";
 import "@/styles/globals.css";
 import { META_THEME_COLORS } from "@/lib/config";
 import { ThemeProvider } from "@/components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
 	title: "Salutis",
@@ -26,6 +27,7 @@ export default function RootLayout({
 			<html lang="en" suppressHydrationWarning>
 				<head>
 					<script
+						// biome-ignore lint/security/noDangerouslySetInnerHtml: needed for theme initialization
 						dangerouslySetInnerHTML={{
 							__html: `
               try {
@@ -50,6 +52,7 @@ export default function RootLayout({
 					<ConvexClientProvider>
 						<ThemeProvider>
 							<div className="bg-background">{children}</div>
+							<Toaster position="top-center" richColors />
 						</ThemeProvider>
 					</ConvexClientProvider>
 				</body>

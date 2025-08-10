@@ -15,11 +15,11 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 export default function SignIn() {
 	const { signIn } = useAuthActions();
 	const [flow, setFlow] = useState<"signIn" | "signUp">("signIn");
-	const [error, setError] = useState<string | null>(null);
 	const router = useRouter();
 	return (
 		<div className="bg-muted flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
@@ -67,9 +67,14 @@ export default function SignIn() {
 										formData.set("flow", flow);
 										void signIn("password", formData)
 											.catch((error) => {
-												setError(error.message);
+												if (error?.message) {
+													toast.error(
+														"Could not sign in, did you mean to sign up?",
+													);
+												}
 											})
 											.then(() => {
+												toast.success("Signed in successfully!");
 												router.push("/");
 											});
 									}}
@@ -121,13 +126,6 @@ export default function SignIn() {
 							</div>
 						</CardContent>
 					</Card>
-					{error && (
-						<Label className="flex items-start gap-3 rounded-lg border p-3 border-red-900 bg-red-950">
-							<p className="text-foreground font-mono text-xs">
-								Could not sign in, did you mean to sign up?
-							</p>
-						</Label>
-					)}
 				</div>
 			</div>
 		</div>
