@@ -16,6 +16,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
+import Image from "next/image";
 
 export default function SignIn() {
 	const { signIn } = useAuthActions();
@@ -26,7 +27,7 @@ export default function SignIn() {
 			<div className="flex w-full max-w-sm flex-col gap-6">
 				<div className="flex items-center gap-2 self-center font-medium">
 					<div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
-						{/* TODO: add logo here */}
+						<Image className="size-4" src="/salutis.svg" alt="Salutis logo" width={24} height={24} />
 					</div>
 					Salutis
 				</div>
