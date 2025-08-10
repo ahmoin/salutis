@@ -387,6 +387,16 @@ function ModuleContent({
 			"panic disorder course": {
 				"symptoms of panic disorder": {
 					icon: <AlertCircle className="w-5 h-5 text-orange-500" />,
+					videos: [
+						{
+							title: "Understanding Panic Disorder Symptoms",
+							url: "https://youtu.be/dZgMwMVKWWs",
+						},
+						{
+							title: "Panic Disorder Signs and Symptoms",
+							url: "https://youtu.be/Ya1HfNY7898",
+						},
+					],
 					sections: [
 						{
 							title: "Panic Attack Symptoms",
@@ -414,6 +424,16 @@ function ModuleContent({
 				},
 				"how to cope with panic disorder": {
 					icon: <Heart className="w-5 h-5 text-purple-500" />,
+					videos: [
+						{
+							title: "Coping with Panic Disorder - Strategies",
+							url: "https://youtu.be/dZgMwMVKWWs",
+						},
+						{
+							title: "Managing Panic Disorder Daily",
+							url: "https://youtu.be/SRII9IQ5HOg",
+						},
+					],
 					sections: [
 						{
 							title: "During a Panic Attack",
@@ -439,6 +459,12 @@ function ModuleContent({
 				},
 				"how to overcome panic disorder": {
 					icon: <Brain className="w-5 h-5 text-indigo-500" />,
+					videos: [
+						{
+							title: "Overcoming Panic Disorder - Treatment and Recovery",
+							url: "https://youtu.be/JA86YOd4zx4",
+						},
+					],
 					sections: [
 						{
 							title: "Treatment Approaches",
@@ -1095,6 +1121,7 @@ function ModuleContent({
 		if (!courseContent) {
 			return {
 				icon: <BookOpen className="w-5 h-5 text-gray-500" />,
+				videos: [],
 				sections: [
 					{
 						title: "Course Content",
@@ -1110,6 +1137,7 @@ function ModuleContent({
 		if (!moduleContent) {
 			return {
 				icon: <BookOpen className="w-5 h-5 text-gray-500" />,
+				videos: [],
 				sections: [
 					{
 						title: "Module Content",
@@ -1141,9 +1169,9 @@ function ModuleContent({
 						Video Resources
 					</h4>
 					<div className="grid gap-3">
-						{content.videos.map((video, index) => (
+						{content.videos.map((video) => (
 							<div
-								key={index}
+								key={video.title}
 								className="bg-muted/30 rounded-lg p-4 border border-border/50"
 							>
 								<div className="flex items-center justify-between">
