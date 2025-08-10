@@ -37,13 +37,13 @@ export default function Home() {
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex justify-between items-center py-4">
 						<div className="flex items-center gap-3">
-							<div className="bg-primary text-primary-foreground flex size-6 items-center justify-center rounded-md">
+							<div className="text-primary-foreground flex size-8 items-center justify-center rounded-md">
 								<Image
-									className="size-4"
+									className="size-8"
 									src="/salutis.svg"
 									alt="Salutis logo"
-									width={24}
-									height={24}
+									width={48}
+									height={48}
 								/>
 							</div>
 							<span className="text-xl font-bold text-foreground">Salutis</span>
