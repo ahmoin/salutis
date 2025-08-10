@@ -7,6 +7,13 @@ import { useConvexAuth } from "convex/react";
 import { useAuthActions } from "@convex-dev/auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from "@/components/ui/card";
 
 export default function Home() {
 	return (
@@ -16,8 +23,13 @@ export default function Home() {
 				<SignOutButton />
 			</header>
 			<main className="p-8 flex flex-col gap-8">
-				<h1 className="text-4xl font-bold text-center">Salutis</h1>
-				{/* <Content /> */}
+				<div className="text-center">
+					<h1 className="text-4xl font-bold mb-2">Salutis</h1>
+					<p className="text-muted-foreground text-lg">
+						Your mental health companion
+					</p>
+				</div>
+				<MentalHealthCourses />
 			</main>
 		</>
 	);
@@ -42,6 +54,100 @@ function SignOutButton() {
 				</Button>
 			)}
 		</>
+	);
+}
+
+function MentalHealthCourses() {
+	const courses = [
+		{
+			title: "Depression Course",
+			description: "Learn to understand and manage depression",
+			modules: [
+				"Symptoms of Depression",
+				"How to cope with Depression",
+				"How to overcome Depression",
+			],
+		},
+		{
+			title: "Schizophrenia Course",
+			description: "Understanding and managing schizophrenia",
+			modules: [
+				"Symptoms of Schizophrenia",
+				"How to cope with Schizophrenia",
+				"How to overcome Schizophrenia",
+			],
+		},
+		{
+			title: "Obsessive Compulsive Disorder (OCD) Course",
+			description: "Managing OCD symptoms and behaviors",
+			modules: [
+				"Symptoms of OCD",
+				"How to cope with OCD",
+				"How to overcome OCD",
+			],
+		},
+		{
+			title: "Post-traumatic Stress Disorder (PTSD) Course",
+			description: "Healing from trauma and managing PTSD",
+			modules: [
+				"Symptoms of PTSD",
+				"How to cope with PTSD",
+				"How to overcome PTSD",
+			],
+		},
+		{
+			title: "Bipolar Disorder Course",
+			description: "Understanding mood swings and stability",
+			modules: [
+				"Symptoms of Bipolar Disorder",
+				"How to cope with Bipolar Disorder",
+				"How to overcome Bipolar Disorder",
+			],
+		},
+		{
+			title: "Panic Disorder Course",
+			description: "Managing panic attacks and anxiety",
+			modules: [
+				"Symptoms of Panic Disorder",
+				"How to cope with Panic Disorder",
+				"How to overcome Panic Disorder",
+			],
+		},
+	];
+
+	return (
+		<div className="max-w-6xl mx-auto">
+			<h2 className="text-2xl font-semibold mb-6">Available Courses</h2>
+			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+				{courses.map((course) => (
+					<Card
+						key={course.title}
+						className="hover:shadow-lg transition-shadow"
+					>
+						<CardHeader>
+							<CardTitle className="text-lg">{course.title}</CardTitle>
+							<CardDescription>{course.description}</CardDescription>
+						</CardHeader>
+						<CardContent>
+							<div className="space-y-2 mb-4">
+								<p className="text-sm font-medium text-muted-foreground">
+									Modules:
+								</p>
+								<ul className="text-sm space-y-1">
+									{course.modules.map((module) => (
+										<li key={module} className="flex items-center gap-2">
+											<div className="w-1.5 h-1.5 bg-primary rounded-full"></div>
+											{module}
+										</li>
+									))}
+								</ul>
+							</div>
+							<Button className="w-full">Start Course</Button>
+						</CardContent>
+					</Card>
+				))}
+			</div>
+		</div>
 	);
 }
 
