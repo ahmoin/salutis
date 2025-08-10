@@ -3,7 +3,6 @@
 import { useConvexAuth, useMutation, useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import type { Id } from "../../convex/_generated/dataModel";
-import { useAuthActions } from "@convex-dev/auth/react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import {
@@ -15,42 +14,12 @@ import {
 } from "@/components/ui/card";
 import { useState, useEffect } from "react";
 import { toast } from "sonner";
-import Image from "next/image";
+import { SiteHeader } from "@/components/site-header";
 
 export default function Dashboard() {
-	const router = useRouter();
-
 	return (
 		<>
-			<header className="sticky top-0 z-10 bg-background p-4 border-b-2 border-zinc-800 flex flex-row justify-between items-center">
-				<div className="flex items-center gap-8">
-					<div className="flex flex-row items-center gap-2">
-						<div className="text-primary-foreground flex size-8 items-center justify-center rounded-md">
-							<Image
-								className="size-8"
-								src="/salutis.svg"
-								alt="Salutis logo"
-								width={48}
-								height={48}
-							/>
-						</div>
-						<span className="text-xl font-bold">Salutis</span>
-					</div>
-					<nav className="flex items-center gap-4">
-						<Button variant="ghost" className="text-primary font-medium">
-							Courses
-						</Button>
-						<Button
-							variant="ghost"
-							onClick={() => router.push("/chat")}
-							className="font-medium"
-						>
-							Chat
-						</Button>
-					</nav>
-				</div>
-				<SignOutButton />
-			</header>
+			<SiteHeader currentPage="courses" />
 			<main className="p-8 flex flex-col gap-8">
 				<div className="text-center">
 					<h1 className="text-4xl font-bold mb-2">Salutis</h1>
@@ -60,28 +29,6 @@ export default function Dashboard() {
 				</div>
 				<MentalHealthCourses />
 			</main>
-		</>
-	);
-}
-
-function SignOutButton() {
-	const { isAuthenticated } = useConvexAuth();
-	const { signOut } = useAuthActions();
-	const router = useRouter();
-	return (
-		<>
-			{isAuthenticated && (
-				<Button
-					variant="outline"
-					onClick={() =>
-						void signOut().then(() => {
-							router.push("/");
-						})
-					}
-				>
-					Sign out
-				</Button>
-			)}
 		</>
 	);
 }

@@ -1,13 +1,10 @@
 "use client";
 
-import { useConvexAuth } from "convex/react";
-import { useAuthActions } from "@convex-dev/auth/react";
-import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Send, Copy, ThumbsUp, ThumbsDown, Edit } from "lucide-react";
 import { useState } from "react";
-import Image from "next/image";
+import { SiteHeader } from "@/components/site-header";
 import type { JSX } from "react/jsx-runtime";
 
 function MarkdownRenderer({ content }: { content: string }) {
@@ -123,7 +120,6 @@ function MarkdownRenderer({ content }: { content: string }) {
 }
 
 export default function Chat() {
-	const router = useRouter();
 	const [message, setMessage] = useState("");
 	const [isLoading, setIsLoading] = useState(false);
 	const [messages, setMessages] = useState<
@@ -203,35 +199,7 @@ export default function Chat() {
 
 	return (
 		<>
-			<header className="sticky top-0 z-10 bg-background p-4 border-b-2 border-zinc-800 flex flex-row justify-between items-center">
-				<div className="flex items-center gap-8">
-					<div className="flex flex-row items-center gap-2">
-						<div className="text-primary-foreground flex size-8 items-center justify-center rounded-md">
-							<Image
-								className="size-8"
-								src="/salutis.svg"
-								alt="Salutis logo"
-								width={48}
-								height={48}
-							/>
-						</div>
-						<span className="text-xl font-bold">Salutis</span>
-					</div>
-					<nav className="flex items-center gap-4">
-						<Button
-							variant="ghost"
-							onClick={() => router.push("/dashboard")}
-							className="font-medium"
-						>
-							Courses
-						</Button>
-						<Button variant="ghost" className="text-primary font-medium">
-							Chat
-						</Button>
-					</nav>
-				</div>
-				<SignOutButton />
-			</header>
+			<SiteHeader currentPage="chat" />
 
 			<main className="flex-1 flex flex-col max-h-[calc(100vh-80px)]">
 				<div className="flex flex-col min-w-0 gap-6 flex-1 overflow-y-scroll pt-4 relative">
@@ -359,28 +327,6 @@ export default function Chat() {
 					</div>
 				</div>
 			</main>
-		</>
-	);
-}
-
-function SignOutButton() {
-	const { isAuthenticated } = useConvexAuth();
-	const { signOut } = useAuthActions();
-	const router = useRouter();
-	return (
-		<>
-			{isAuthenticated && (
-				<Button
-					variant="outline"
-					onClick={() =>
-						void signOut().then(() => {
-							router.push("/");
-						})
-					}
-				>
-					Sign out
-				</Button>
-			)}
 		</>
 	);
 }
