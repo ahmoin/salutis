@@ -118,19 +118,19 @@ export default function Home() {
 					<div className="max-w-6xl mx-auto space-y-14">
 						<div className="grid grid-cols-6 gap-6 h-64">
 							<div className="col-span-2">
-								<CoursesCard router={router} />
+								<CoursesCard />
 							</div>
 							<div className="col-span-3">
-								<ChatCard router={router} />
+								<ChatCard />
 							</div>
 							<div className="col-span-1">
-								<BreathingCard router={router} />
+								<BreathingCard />
 							</div>
 						</div>
 
 						<div className="grid grid-cols-2 gap-6 h-64">
-							<DepressionCard router={router} />
-							<AnxietyCard router={router} />
+							<DepressionCard />
+							<AnxietyCard />
 						</div>
 					</div>
 				</div>
@@ -184,116 +184,7 @@ export default function Home() {
 	);
 }
 
-function FeatureCard({
-	feature,
-	router,
-	index,
-}: {
-	feature: {
-		title: string;
-		description: string;
-		icon: string;
-		link: string;
-	};
-	router: any;
-	index: number;
-}) {
-	const [isHovered, setIsHovered] = useState(false);
-
-	const handleClick = () => {
-		router.push(feature.link);
-	};
-
-	const getAnimationVariant = () => {
-		const variants = [
-			{ initial: { opacity: 0, x: -50 }, animate: { opacity: 1, x: 0 } },
-			{ initial: { opacity: 0, y: 50 }, animate: { opacity: 1, y: 0 } },
-			{ initial: { opacity: 0, x: 50 }, animate: { opacity: 1, x: 0 } },
-			{
-				initial: { opacity: 0, scale: 0.8 },
-				animate: { opacity: 1, scale: 1 },
-			},
-			{
-				initial: { opacity: 0, rotate: -10 },
-				animate: { opacity: 1, rotate: 0 },
-			},
-			{ initial: { opacity: 0, y: -50 }, animate: { opacity: 1, y: 0 } },
-		];
-		return variants[index % variants.length];
-	};
-
-	const variant = getAnimationVariant();
-
-	return (
-		<motion.div
-			initial={variant.initial}
-			whileInView={variant.animate}
-			transition={{
-				duration: 0.6,
-				delay: index * 0.1,
-				type: "spring",
-				stiffness: 100,
-				damping: 15,
-			}}
-			viewport={{ once: true }}
-			whileHover={{
-				y: -8,
-				scale: 1.02,
-				transition: { duration: 0.2 },
-			}}
-			whileTap={{ scale: 0.98 }}
-			onClick={handleClick}
-			onHoverStart={() => setIsHovered(true)}
-			onHoverEnd={() => setIsHovered(false)}
-			className="cursor-pointer"
-		>
-			<div className="bg-card/60 backdrop-blur-sm border border-border rounded-2xl p-6 h-full hover:shadow-xl hover:border-primary/20 transition-all duration-300">
-				<div className="flex flex-col items-center text-center space-y-4">
-					<motion.div
-						className="text-4xl"
-						animate={
-							isHovered
-								? {
-										scale: [1, 1.2, 1],
-										rotate: [0, 10, -10, 0],
-									}
-								: {
-										scale: [1, 1.05, 1],
-										rotate: [0, 2, -2, 0],
-									}
-						}
-						transition={{
-							duration: isHovered ? 0.5 : 2,
-							repeat: isHovered ? 0 : Infinity,
-							repeatDelay: isHovered ? 0 : 3,
-						}}
-					>
-						{feature.icon}
-					</motion.div>
-
-					<motion.h3
-						className="text-xl font-bold text-foreground"
-						animate={isHovered ? { scale: 1.05 } : { scale: 1 }}
-						transition={{ duration: 0.2 }}
-					>
-						{feature.title}
-					</motion.h3>
-
-					<motion.p
-						className="text-sm text-muted-foreground leading-relaxed"
-						initial={{ opacity: 0.8 }}
-						animate={isHovered ? { opacity: 1 } : { opacity: 0.8 }}
-						transition={{ duration: 0.2 }}
-					>
-						{feature.description}
-					</motion.p>
-				</div>
-			</div>
-		</motion.div>
-	);
-}
-
-function CoursesCard({ router }: { router: any }) {
+function CoursesCard() {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -307,7 +198,6 @@ function CoursesCard({ router }: { router: any }) {
 				transition: { duration: 0.3 },
 			}}
 			whileTap={{ scale: 0.98 }}
-			onClick={() => router.push("/dashboard")}
 			onHoverStart={() => setIsHovered(true)}
 			onHoverEnd={() => setIsHovered(false)}
 			className="cursor-pointer"
@@ -366,7 +256,7 @@ function CoursesCard({ router }: { router: any }) {
 	);
 }
 
-function ChatCard({ router }: { router: any }) {
+function ChatCard() {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -380,7 +270,6 @@ function ChatCard({ router }: { router: any }) {
 				transition: { duration: 0.3 },
 			}}
 			whileTap={{ scale: 0.98 }}
-			onClick={() => router.push("/chat")}
 			onHoverStart={() => setIsHovered(true)}
 			onHoverEnd={() => setIsHovered(false)}
 			className="cursor-pointer"
@@ -442,7 +331,7 @@ function ChatCard({ router }: { router: any }) {
 	);
 }
 
-function BreathingCard({ router }: { router: any }) {
+function BreathingCard() {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -456,7 +345,6 @@ function BreathingCard({ router }: { router: any }) {
 				transition: { duration: 0.3 },
 			}}
 			whileTap={{ scale: 0.98 }}
-			onClick={() => router.push("/breathing")}
 			onHoverStart={() => setIsHovered(true)}
 			onHoverEnd={() => setIsHovered(false)}
 			className="cursor-pointer"
@@ -520,7 +408,7 @@ function BreathingCard({ router }: { router: any }) {
 	);
 }
 
-function DepressionCard({ router }: { router: any }) {
+function DepressionCard() {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -534,7 +422,6 @@ function DepressionCard({ router }: { router: any }) {
 				transition: { duration: 0.3 },
 			}}
 			whileTap={{ scale: 0.98 }}
-			onClick={() => router.push("/dashboard")}
 			onHoverStart={() => setIsHovered(true)}
 			onHoverEnd={() => setIsHovered(false)}
 			className="cursor-pointer"
@@ -577,7 +464,7 @@ function DepressionCard({ router }: { router: any }) {
 						animate={isHovered ? { y: -2 } : { y: 0 }}
 						transition={{ duration: 0.3 }}
 					>
-						You're not alone ✨
+						You&apos;re not alone ✨
 					</motion.div>
 				</div>
 			</div>
@@ -585,7 +472,7 @@ function DepressionCard({ router }: { router: any }) {
 	);
 }
 
-function AnxietyCard({ router }: { router: any }) {
+function AnxietyCard() {
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -599,7 +486,6 @@ function AnxietyCard({ router }: { router: any }) {
 				transition: { duration: 0.3 },
 			}}
 			whileTap={{ scale: 0.98 }}
-			onClick={() => router.push("/dashboard")}
 			onHoverStart={() => setIsHovered(true)}
 			onHoverEnd={() => setIsHovered(false)}
 			className="cursor-pointer"
