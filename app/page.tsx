@@ -115,13 +115,23 @@ export default function Home() {
 					>
 						Comprehensive Mental Health Support
 					</motion.h2>
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-						<CoursesCard router={router} />
-						<ChatCard router={router} />
-						<BreathingCard router={router} />
-						<DepressionCard router={router} />
-						<AnxietyCard router={router} />
-						<TraumaCard router={router} />
+					<div className="max-w-6xl mx-auto space-y-14">
+						<div className="grid grid-cols-6 gap-6 h-64">
+							<div className="col-span-2">
+								<CoursesCard router={router} />
+							</div>
+							<div className="col-span-3">
+								<ChatCard router={router} />
+							</div>
+							<div className="col-span-1">
+								<BreathingCard router={router} />
+							</div>
+						</div>
+
+						<div className="grid grid-cols-2 gap-6 h-64">
+							<DepressionCard router={router} />
+							<AnxietyCard router={router} />
+						</div>
 					</div>
 				</div>
 
@@ -302,7 +312,7 @@ function CoursesCard({ router }: { router: any }) {
 			onHoverEnd={() => setIsHovered(false)}
 			className="cursor-pointer"
 		>
-			<div className="bg-background border border-border rounded-2xl p-8 h-full hover:shadow-lg hover:border-primary/50 transition-all duration-300">
+			<div className="bg-background border border-border rounded-2xl pt-8 pl-8 pr-8 pb-6 h-full hover:shadow-lg hover:border-primary/50 transition-all duration-300">
 				<div className="flex flex-col items-center text-center space-y-6">
 					<motion.div
 						className="text-5xl"
@@ -331,8 +341,7 @@ function CoursesCard({ router }: { router: any }) {
 						animate={isHovered ? { opacity: 1 } : { opacity: 0.8 }}
 						transition={{ duration: 0.3 }}
 					>
-						Structured learning paths for depression, anxiety, trauma, bipolar
-						disorder, OCD, and schizophrenia support.
+						Structured learning paths for mental health support.
 					</motion.p>
 
 					<motion.div
@@ -452,71 +461,60 @@ function BreathingCard({ router }: { router: any }) {
 			onHoverEnd={() => setIsHovered(false)}
 			className="cursor-pointer"
 		>
-			<div className="bg-background border border-border rounded-2xl p-8 h-full hover:shadow-lg hover:border-primary/50 transition-all duration-300">
-				<div className="flex flex-col items-center text-center space-y-6">
-					<motion.div
-						className="text-5xl"
-						animate={
-							isHovered
-								? { scale: [1, 1.1, 1] }
-								: { scale: [1, 1.1, 0.95, 1.1, 1] }
-						}
-						transition={{
-							duration: isHovered ? 0.4 : 4,
-							repeat: isHovered ? 0 : Infinity,
-							repeatDelay: 1,
-							ease: "easeInOut",
-						}}
-					>
-						🫁
-					</motion.div>
+			<div className="bg-background border border-border rounded-2xl p-4 h-72 hover:shadow-lg hover:border-primary/50 transition-all duration-300 flex flex-col items-center justify-center text-center">
+				<motion.div
+					className="text-4xl mb-3"
+					animate={
+						isHovered
+							? { scale: [1, 1.1, 1] }
+							: { scale: [1, 1.1, 0.95, 1.1, 1] }
+					}
+					transition={{
+						duration: isHovered ? 0.4 : 4,
+						repeat: isHovered ? 0 : Infinity,
+						repeatDelay: 1,
+						ease: "easeInOut",
+					}}
+				>
+					🫁
+				</motion.div>
 
-					<motion.h3
-						className="text-2xl font-bold text-foreground"
-						animate={isHovered ? { y: -2 } : { y: 0 }}
-						transition={{ duration: 0.3 }}
-					>
-						Breathing Exercises
-					</motion.h3>
+				<motion.h3
+					className="text-lg font-bold text-foreground mb-2"
+					animate={isHovered ? { y: -2 } : { y: 0 }}
+					transition={{ duration: 0.3 }}
+				>
+					Breathing
+				</motion.h3>
 
-					<motion.p
-						className="text-muted-foreground leading-relaxed"
-						animate={isHovered ? { opacity: 1 } : { opacity: 0.8 }}
-						transition={{ duration: 0.3 }}
-					>
-						Guided breathing patterns including 4-7-8 relaxation, box breathing,
-						and energizing techniques.
-					</motion.p>
-
-					<motion.div
-						className="flex items-center space-x-3"
-						animate={isHovered ? { y: -3 } : { y: 0 }}
-						transition={{ duration: 0.3 }}
-					>
-						{[1, 2, 3, 4].map((i) => (
-							<motion.div
-								key={i}
-								className="w-2 h-2 bg-primary rounded-full"
-								animate={
-									isHovered
-										? {
-												scale: [1, 1.3, 1],
-												opacity: [0.5, 1, 0.5],
-											}
-										: {
-												scale: [1, 1.1, 1],
-												opacity: [0.4, 0.8, 0.4],
-											}
-								}
-								transition={{
-									duration: 2,
-									repeat: Infinity,
-									delay: i * 0.2,
-								}}
-							/>
-						))}
-					</motion.div>
-				</div>
+				<motion.div
+					className="flex items-center space-x-1"
+					animate={isHovered ? { y: -2 } : { y: 0 }}
+					transition={{ duration: 0.3 }}
+				>
+					{[1, 2, 3, 4].map((i) => (
+						<motion.div
+							key={i}
+							className="w-1.5 h-1.5 bg-primary rounded-full"
+							animate={
+								isHovered
+									? {
+											scale: [1, 1.3, 1],
+											opacity: [0.5, 1, 0.5],
+										}
+									: {
+											scale: [1, 1.1, 1],
+											opacity: [0.4, 0.8, 0.4],
+										}
+							}
+							transition={{
+								duration: 2,
+								repeat: Infinity,
+								delay: i * 0.2,
+							}}
+						/>
+					))}
+				</motion.div>
 			</div>
 		</motion.div>
 	);
@@ -654,71 +652,6 @@ function AnxietyCard({ router }: { router: any }) {
 								{emoji}
 							</motion.span>
 						))}
-					</motion.div>
-				</div>
-			</div>
-		</motion.div>
-	);
-}
-
-function TraumaCard({ router }: { router: any }) {
-	const [isHovered, setIsHovered] = useState(false);
-
-	return (
-		<motion.div
-			initial={{ opacity: 0, y: 50 }}
-			whileInView={{ opacity: 1, y: 0 }}
-			transition={{ duration: 0.6, type: "spring", stiffness: 100, delay: 0.5 }}
-			viewport={{ once: true }}
-			whileHover={{
-				y: -8,
-				transition: { duration: 0.3 },
-			}}
-			whileTap={{ scale: 0.98 }}
-			onClick={() => router.push("/dashboard")}
-			onHoverStart={() => setIsHovered(true)}
-			onHoverEnd={() => setIsHovered(false)}
-			className="cursor-pointer"
-		>
-			<div className="bg-background border border-border rounded-2xl p-8 h-full hover:shadow-lg hover:border-primary/50 transition-all duration-300">
-				<div className="flex flex-col items-center text-center space-y-6">
-					<motion.div
-						className="text-5xl"
-						animate={
-							isHovered ? { scale: [1, 1.1, 1] } : { scale: [1, 1.05, 1] }
-						}
-						transition={{
-							duration: isHovered ? 0.4 : 3.5,
-							repeat: isHovered ? 0 : Infinity,
-							repeatDelay: 2,
-						}}
-					>
-						🌟
-					</motion.div>
-
-					<motion.h3
-						className="text-2xl font-bold text-foreground"
-						animate={isHovered ? { y: -2 } : { y: 0 }}
-						transition={{ duration: 0.3 }}
-					>
-						Trauma Recovery
-					</motion.h3>
-
-					<motion.p
-						className="text-muted-foreground leading-relaxed"
-						animate={isHovered ? { opacity: 1 } : { opacity: 0.8 }}
-						transition={{ duration: 0.3 }}
-					>
-						Evidence-based approaches to healing from PTSD and traumatic
-						experiences.
-					</motion.p>
-
-					<motion.div
-						className="text-sm text-primary font-semibold"
-						animate={isHovered ? { y: -2 } : { y: 0 }}
-						transition={{ duration: 0.3 }}
-					>
-						Healing is possible 🌈
 					</motion.div>
 				</div>
 			</div>
