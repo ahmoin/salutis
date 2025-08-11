@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { HomeHeader } from "@/components/home-header";
 import { motion } from "motion/react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Home() {
 	const { isAuthenticated } = useConvexAuth();
@@ -185,6 +186,7 @@ export default function Home() {
 }
 
 function CoursesCard() {
+	const isMobile = useIsMobile(1200);
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -202,7 +204,7 @@ function CoursesCard() {
 			onHoverEnd={() => setIsHovered(false)}
 			className="cursor-pointer"
 		>
-			<div className="bg-background border border-border rounded-2xl pt-8 pl-8 pr-8 pb-6 h-full hover:shadow-lg hover:border-primary/50 transition-all duration-300">
+			<div className="bg-background border border-border rounded-2xl pt-8 pl-8 pr-8 pb-6 h-72 hover:shadow-lg hover:border-primary/50 transition-all duration-300">
 				<div className="flex flex-col items-center text-center space-y-6">
 					<motion.div
 						className="text-5xl"
@@ -226,13 +228,13 @@ function CoursesCard() {
 						Evidence-Based Courses
 					</motion.h3>
 
-					<motion.p
+					{ isMobile ? null : <motion.p
 						className="text-muted-foreground leading-relaxed"
 						animate={isHovered ? { opacity: 1 } : { opacity: 0.8 }}
 						transition={{ duration: 0.3 }}
 					>
 						Structured learning paths for mental health support.
-					</motion.p>
+					</motion.p> }
 
 					<motion.div
 						className="flex space-x-2"
@@ -257,6 +259,7 @@ function CoursesCard() {
 }
 
 function ChatCard() {
+	const isMobile = useIsMobile();
 	const [isHovered, setIsHovered] = useState(false);
 
 	return (
@@ -274,7 +277,7 @@ function ChatCard() {
 			onHoverEnd={() => setIsHovered(false)}
 			className="cursor-pointer"
 		>
-			<div className="bg-background border border-border rounded-2xl p-8 h-full hover:shadow-lg hover:border-primary/50 transition-all duration-300">
+			<div className="bg-background border border-border rounded-2xl p-8 h-72 hover:shadow-lg hover:border-primary/50 transition-all duration-300">
 				<div className="flex flex-col items-center text-center space-y-6">
 					<motion.div
 						className="text-5xl relative"
@@ -303,14 +306,14 @@ function ChatCard() {
 						AI Mental Health Chat
 					</motion.h3>
 
-					<motion.p
+					{ isMobile ? null :<motion.p
 						className="text-muted-foreground leading-relaxed"
 						animate={isHovered ? { opacity: 1 } : { opacity: 0.8 }}
 						transition={{ duration: 0.3 }}
 					>
 						Get instant support and guidance from our AI assistant trained in
 						mental health best practices.
-					</motion.p>
+					</motion.p>}
 
 					<motion.div
 						className="flex items-center space-x-1 text-sm text-primary"
